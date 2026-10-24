@@ -1,19 +1,27 @@
 # Payday
 
-A public reward-discovery app with a finite journey: choose a feeling, set a budget, and explore up to three ideas.
+A public reward-discovery app with a finite journey: set a treat budget, describe a life situation, choose a reward direction, and compare up to three specific options.
 
 **Live app:** https://payday-reward-discovery.maltoh12345.chatgpt.site
 
 ## Features
 
-- Guided discovery from 50 clearly labelled sample recommendations.
+- Three entry paths: help me discover, choose from my wishlist, and find my fit.
+- Context-first discovery: budget → intention → one situational question → three reward ideas → specific options.
+- Reason-based idea replacement that preserves the other choices.
+- Fifty clearly labelled sample recommendations for no-sign-in exploration.
 - Up to three affordable recommendations per journey, with details and trade-offs.
 - Three AI-generated product concept images; other samples use illustrations.
-- Browser-local saved inspiration, available without signing in.
+- Resumable browser-local guest journeys; private account shelves with explicit guest import.
+- Wishlist link inbox, larger-reward savings goals, and usual treat budget.
 - Private payday plans with dates, timezones, budgets, interests and exclusions.
-- In-app reminders, optional open-tab browser alerts and calendar export.
-- Optional live OpenAI research with merchant links and cited Reddit/forum evidence.
-- Comparison, saved finds, purchase self-reporting and satisfaction feedback.
+- In-app reminders, optional open-tab browser alerts and calendar export, linked to the selected reward.
+- Live OpenAI research with location, party size, practical fit, known possessions and exclusions.
+- Merchant product-page research with independent availability checking and a final exact-listing price/stock recheck.
+- Reddit/forum evidence with benefits, concerns, best-fit audience, dates and exact-product/category relevance.
+- Comparison, saved finds, purchase self-reporting, use/satisfaction feedback and experience-date gating.
+- Previous satisfaction feedback informs later live research; already purchased rewards are excluded.
+- Exportable personal activity events distinguish clicks, self-reported purchases and feedback.
 
 Sample items and prices are illustrative. Generated images are concepts, not photographs of verified merchandise. Sample recommendations do not claim retailer availability, ratings or community endorsements. Live prices, stock, shipping and taxes need a final check at the retailer. Purchases happen on retailer sites.
 
@@ -46,13 +54,15 @@ Visit http://127.0.0.1:3003. Local loopback preview provides simulated ChatGPT s
 
 ```sh
 npx tsc --noEmit
-node --experimental-strip-types --test tests/rewards.test.mjs tests/catalogue.test.mjs
+node --experimental-strip-types --test tests/*.test.mjs
 npm run build
 ```
 
 ## Project structure
 
 - `app/`: React interface and server API routes.
+- `app/reward-journey.tsx`: unified discovery, shelf, evidence and feedback interface.
+- `lib/journey.ts`: journal model, contextual sample recipes, group budgets and feedback rules.
 - `lib/catalogue.ts`: sample concepts and bounded shortlist selection.
 - `lib/ai.ts`: server-only OpenAI Responses calls.
 - `db/` and `drizzle/`: D1 schema and migration.
@@ -72,10 +82,18 @@ Browser alerts require the app to stay open; imported calendar reminders handle 
 
 ## Design references
 
-Mobbin references informed the earlier browsing layout; the current design replaces the full grid with a three-step journey:
+Mobbin references informed the earlier browsing layout; the current design replaces the full grid with a bounded context-first journey:
 
 - [Shop category browsing](https://mobbin.com/screens/b58686eb-e5e0-4f84-89e9-2a91d8f45711)
 - [Etsy themed discovery](https://mobbin.com/screens/26fe7c4f-4751-422f-a2a7-379b83e1e10e)
 - [Faire product grid](https://mobbin.com/screens/24288f35-d083-44da-b4c1-eac44c89150b)
 
 Mobbin screenshots are not bundled in this repository. Product concept images were generated with the built-in image generation tool.
+
+## Verification and limits
+
+The release was checked with TypeScript, 15 domain tests, local browser journeys, and live OpenAI idea/product/evidence/recheck requests. Live stock research can be inconsistent: an initial listing was later found sold out, so the shortlist now receives a separate availability check and purchase handoff requires another recheck. Search-based checks are not a merchant inventory guarantee.
+
+Guest mode uses authored sample matching, not live AI. Live discovery requires sign-in. The approximately two-minute journey is a design target, not a measured user-study result. No controlled conversion or satisfaction study has been run. Prices with unknown mandatory costs are visibly marked; merchant checkout is the final source of truth.
+
+No new database migration is required: the versioned journey journal is stored inside the existing per-user JSON state record. Existing plans and saved records are preserved. The activity view is personal event counts, not a cross-user analytics dashboard or an implemented A/B experiment.

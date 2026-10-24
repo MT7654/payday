@@ -1,10 +1,10 @@
-export type Plan = { id:string; title:string; occasion:string; intention:string; budget:number; date:string; time:string; timezone:string; monthly:boolean; paused:boolean; interests:string; exclusions:string; notified:string[]; dismissed:string[]; snooze:string|null };
-export type Source = { url:string; title:string };
+export type Plan = { id:string; title:string; occasion:string; intention:string; budget:number; date:string; time:string; timezone:string; monthly:boolean; paused:boolean; interests:string; exclusions:string; notified:string[]; dismissed:string[]; snooze:string|null; targetFindId?:string };
+export type Source = { url:string; title:string; date?:string; relevance?:string };
 export type Product = { id:string; name:string; category:string; price:number; merchant:string; url:string; reason:string; tradeoff:string; checkedAt:string; sources:Source[]; mode:'live'|'demo'; totalCostKnown:boolean; art:string };
-export type Evidence = { summary:string; positives:{text:string;urls:string[]}[]; concerns:{text:string;urls:string[]}[]; sources:Source[]; coverage:string; sentiment:string; checkedAt:string; mode:'live'|'demo' };
+export type Evidence = { summary:string; positives:{text:string;urls:string[]}[]; concerns:{text:string;urls:string[]}[]; sources:Source[]; coverage:string; sentiment:string; checkedAt:string; mode:'live'|'demo'; bestFor?:string; mayDisappoint?:string; relevance?:string };
 export type Session = { id:string; planId:string; mode:'live'|'demo'; direction:string; reactions:string[]; products:Product[]; question:string; scenarios:{title:string;description:string;icon:string}[]; evidence:Record<string,Evidence>; stage:number; updatedAt:string };
 export type Saved = Product & { savedAt:string; decision:'saved'|'visited'|'bought'|'skipped'; feedback?:string };
-export type State = { plans:Plan[]; sessions:Session[]; saved:Saved[]; settings:{ notifications:boolean; timezone:string; mode:'live'|'demo' }; events:{name:string;at:string;mode:string}[] };
+export type State = { plans:Plan[]; sessions:Session[]; saved:Saved[]; journey?:import('./journey').Journal; settings:{ notifications:boolean; timezone:string; mode:'live'|'demo' }; events:{name:string;at:string;mode:string}[] };
 export const emptyState:State = {plans:[],sessions:[],saved:[],settings:{notifications:false,timezone:'Asia/Singapore',mode:'demo'},events:[]};
 export const money = (n:number) => new Intl.NumberFormat('en-SG',{style:'currency',currency:'SGD',maximumFractionDigits:2}).format(n);
 export function zonedParts(at:Date,timezone:string) {const parts=new Intl.DateTimeFormat('en-CA',{timeZone:timezone,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(at);const p=Object.fromEntries(parts.map(x=>[x.type,x.value]));return {date:`${p.year}-${p.month}-${p.day}`,time:`${p.hour}:${p.minute}`,year:+p.year,month:+p.month,day:+p.day};}
