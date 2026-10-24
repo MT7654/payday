@@ -1,22 +1,12 @@
 {
   "manifest_version": 3,
   "name": "Payday — Things that caught your eye",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "minimum_chrome_version": "116",
-  "description": "Keep shopping interests on your device. Share a shortlist with Payday when you want help choosing a treat.",
+  "description": "A thoughtful shortlist for your next payday. Review your interests and explore what would make your day.",
   "permissions": [
     "storage",
-    "activeTab",
-    "scripting",
-    "sidePanel",
-    "alarms"
-  ],
-  "optional_permissions": [
-    "history",
-    "notifications"
-  ],
-  "optional_host_permissions": [
-    "https://*/*"
+    "sidePanel"
   ],
   "background": {
     "service_worker": "background.js",

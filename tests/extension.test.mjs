@@ -10,20 +10,30 @@ test('bridge rejects foreign origins, frames, and unknown message types',async()
  await listener({...event,origin:'https://evil.example'});await listener({...event,source:{}});await listener({...event,data:{...event.data,type:'all-history'}});assert.equal(sent.length,0);
  await listener(event);assert.equal(sent.length,1);assert.equal(responses[0][1],APP);assert.equal(responses[0][0].nonce,'123');
 });
-test('service worker limits website access to shared items on the exact app origin',async()=>{
- let listener;const data={items:[],sites:['https://shop.example']};const noop={addListener(){}};
- globalThis.chrome={sidePanel:{setPanelBehavior:async()=>{}},runtime:{id:'test-id',getURL:p=>'chrome-extension://test-id/'+p,onInstalled:noop,onStartup:noop,onMessage:{addListener:fn=>listener=fn}},permissions:{contains:async()=>true,onRemoved:noop,remove:async()=>{}},storage:{local:{get:async()=>structuredClone(data),set:async value=>Object.assign(data,value)}},scripting:{getRegisteredContentScripts:async()=>[],unregisterContentScripts:async()=>{},registerContentScripts:async()=>{}},alarms:{onAlarm:noop,create(){}},notifications:{onClicked:noop},tabs:{}};
+test('prepared companion never reads browsing data and only shares selected catalogue interests',async()=>{
+ let listener;const data={items:[{name:'Private old item',url:'https://private.example'}],sites:['https://private.example']};let cleared=0;
+ globalThis.chrome={sidePanel:{setPanelBehavior:async()=>{}},runtime:{id:'test-id',getURL:p=>'chrome-extension://test-id/'+p,onInstalled:{addListener(){}},onMessage:{addListener:fn=>listener=fn}},storage:{local:{get:async()=>structuredClone(data),set:async value=>Object.assign(data,value),clear:async()=>{cleared++;for(const k of Object.keys(data))delete data[k];}}}};
  await import('../extension/background.js');
  const panel={id:'test-id',url:'chrome-extension://test-id/panel.html'};
- const call=(m,s)=>new Promise(resolve=>{const accepted=listener(m,s,resolve);if(!accepted)resolve(undefined);});
- await call({type:'save',item:{url:'https://shop.example/products/camera?utm=1',name:'Camera'}},panel);
- const id=data.items[0].id;assert.equal(data.items[0].shared,false);
- await call({type:'update',id,intent:'me',shared:true},panel);
+ const app={id:'test-id',origin:APP,frameId:0};
+ const call=(m,s)=>new Promise(resolve=>{if(!listener(m,s,resolve))resolve(undefined);});
+ const first=await call({type:'state'},panel);assert.equal(cleared,1);assert.equal(first.items.length,4);assert.ok(first.items.every(x=>x.kind==='prepared'&&!x.shared));assert.equal(data.sites,undefined);
+ assert.deepEqual((await call({type:'read-shared'},app)).items,[]);
+ const id=first.items[0].id;await call({type:'update',id,intent:'me',shared:true},panel);
+ const shared=await call({type:'read-shared'},app);assert.equal(shared.items.length,1);assert.equal(shared.items[0].kind,'prepared');
  assert.equal(await call({type:'read-shared'},{id:'test-id',origin:'https://evil.example',frameId:0}),undefined);
- assert.equal(await call({type:'state'},{id:'test-id',origin:APP,frameId:0}),undefined);
- const result=await call({type:'read-shared'},{id:'test-id',origin:APP,frameId:0});assert.equal(result.items.length,1);
- await call({type:'capture',item:{name:'Other',url:'https://shop.example/products/other'}},{id:'test-id',url:'https://shop.example/products/other',tab:{incognito:true},frameId:0});assert.equal(data.items.length,1);
- await call({type:'capture',item:{name:'Unapproved'}},{id:'test-id',url:'https://other.example/products/a',tab:{incognito:false},frameId:0});assert.equal(data.items.length,1);
- await call({type:'update',id,intent:'gift',shared:true},panel);assert.equal((await call({type:'read-shared'},{id:'test-id',origin:APP,frameId:0})).items.length,0);
+ assert.equal(await call({type:'state'},app),undefined);
+ assert.equal(await call({type:'capture',item:{name:'Private'}},{id:'test-id',origin:'https://shop.example',frameId:0}),undefined);
+ assert.ok((await call({type:'save',item:{name:'Private'}},panel)).error);
+ await call({type:'update',id,intent:'gift',shared:true},panel);assert.equal((await call({type:'read-shared'},app)).items.length,0);
+ await call({type:'forget'},panel);assert.equal((await call({type:'state'},panel)).items.length,0);
+ await call({type:'restore'},panel);assert.equal((await call({type:'state'},panel)).items.length,4);
  delete globalThis.chrome;
+});
+test('packaged extension requests no browsing access and contains no capture code',()=>{
+ const manifest=JSON.parse(readFileSync(new URL('../extension/manifest.json',import.meta.url),'utf8'));
+ assert.deepEqual(manifest.permissions,['storage','sidePanel']);
+ assert.equal(manifest.optional_permissions,undefined);assert.equal(manifest.optional_host_permissions,undefined);assert.equal(manifest.host_permissions,undefined);
+ assert.deepEqual(manifest.content_scripts[0].matches,[APP+'/*']);
+ for(const file of ['background.js','panel.js'])assert.doesNotMatch(readFileSync(new URL('../extension/'+file,import.meta.url),'utf8'),/chrome\.(history|tabs|scripting|webNavigation|webRequest|cookies)/);
 });
