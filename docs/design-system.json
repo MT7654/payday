@@ -1,0 +1,21 @@
+{
+  "name": "Payday — Thoughtful moments",
+  "version": 1,
+  "principles": ["One primary action per step", "Two prepared directions rather than an endless feed", "Photography supplies context, not proof of a merchant offer", "Explicit connection and sample states", "Shared components across discovery, plans, shelf and settings"],
+  "references": [
+    {"url":"https://mobbin.com/screens/2e5807cb-f0a8-473e-9922-1e662f86a891","app":"Airbnb","application":"Consistent photographic card proportions and compact metadata; not its endless browsing model"},
+    {"url":"https://mobbin.com/screens/60633949-5e32-4292-a399-e8d6f7615472","app":"Headspace","application":"A clear next activity with quiet secondary choices"},
+    {"url":"https://mobbin.com/screens/e1adf1d4-aef6-415d-8659-f0994b9f1153","app":"Monarch","application":"Purposeful connection step and explicit skip path"}
+  ],
+  "tokens": {
+    "colour":{"canvas":"#F8F7F2","surface":"#FFFEFA","ink":"#263C30","muted":"#626E60","line":"#DDE2D6","primary":"#34523F","primaryHover":"#263F30","soft":"#EDF1E6","accent":"#A34F31","focus":"#A34F31"},
+    "type":{"body":"DM Sans, system-ui, sans-serif","heading":"Manrope, system-ui, sans-serif","editorial":"Georgia, serif","sizes":[11,12,14,16,20,24,32,44,56],"bodyLineHeight":1.65},
+    "spacing":[4,8,12,16,24,32,48,64],
+    "radius":{"input":12,"button":12,"card":20,"hero":24,"pill":999},
+    "controls":{"minimumHeight":44,"focusRing":3},
+    "imagery":{"cardRatio":"3:2","heroRatio":"3:2","style":"Warm editorial photography, natural light, pale oak, ivory linen, sage and terracotta accents","disclosure":"AI concept","merchantDisclaimer":"Illustrative concept, not an exact merchant product"},
+    "layout":{"contentMaxWidth":1160,"desktopGutter":40,"mobileGutter":20,"mobileBreakpoint":760}
+  },
+  "states":["default","hover","focus-visible","disabled","selected","loading","empty","error","unavailable"],
+  "accessibility":["Keep body copy on solid surfaces", "Do not use colour alone for selected status", "Label generated imagery", "Respect reduced motion", "Do not make cards hover-only", "Provide alt text for photo subjects"]
+}

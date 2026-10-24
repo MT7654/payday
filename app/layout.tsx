@@ -4,6 +4,7 @@ import "./reward-journey.css";
 import "./preference-flow.css";
 import "./shop-guide.css";
 import "./payday-assistant.css";
+import "./design-system.css";
 
 export const metadata: Metadata = {
   title: "Payday — A little something for you",
