@@ -130,3 +130,14 @@ Choose **Try a sample account** → confirm whether the paints are owned, a gift
 - [Literal preference feedback](https://mobbin.com/screens/4effff01-e806-4f1b-94ee-f5064f558ba9): a small, bounded set of choices.
 
 Applied: single primary action per step, two possibilities, progress indication, 45px minimum primary targets, editable context, truthful unavailable states, visible sample status, keyboard focus and mobile scroll reset. Reference screenshots are not shipped. Browser QA covered the mobile-width sample journey through a second payday and a live response using saved preferences. These are functional checks, not a user study or proof of better conversion.
+
+
+## Editorial imagery and design system
+
+The current interface uses the shared tokens and component rules in app/design-system.css, specified first in docs/design-system.json. Mobbin references include Airbnb experience cards, Headspace task hierarchy and Monarch connection clarity. Warm ivory, forest green, muted terracotta, consistent type/spacing, 44px controls, shared card corners and 3:2 photographic frames are applied across discovery, plans, saved rewards and settings.
+
+52 original assets were generated with built-in image_gen: one for each of the 50 curated ideas, plus a hero and gift image. Optimized WebP files live in public/images/rewards; exact prompts and asset paths are recorded in docs/image-generation.json. Photos are labelled AI concepts and must not be represented as verified merchant photos. Product and activity titles choose relevant imagery; fixed catalogue IDs have individual images.
+
+User-facing demo/hackathon language has been replaced with planning and discovery language. The prepared journey uses an explicitly illustrative profile, separate from personal memory; its forward-looking reactions express anticipated fit rather than claiming a past purchase or elapsed time. Curated costs remain planning figures, and unavailable Gmail remains accurately labelled.
+
+Reviewed the mobile home, plans, settings and recommendation cards visually against the Mobbin patterns. No broken-asset audit was run, as requested.

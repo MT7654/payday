@@ -1,0 +1,423 @@
+{
+  "prompts": [
+    {
+      "id": "hero",
+      "prompt": "Use case: photorealistic-natural. Create one wide editorial lifestyle photograph for Payday, a thoughtful reward-discovery app. A quiet creative Saturday afternoon: open watercolor palette, a small botanical watercolor in progress, ceramic cup of tea, linen cloth on pale oak beside a sunlit window, leafy greenery softly blurred beyond. No people, no text, no logos. Warm natural side light, tactile materials, muted sage and terracotta accents, calm premium magazine photography, realistic lived-in details, not a 3D render. Landscape 3:2 composition, main objects central, generous breathing room. This is an illustrative lifestyle concept, not a real merchant product."
+    },
+    {
+      "id": "sample-01",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Slow-morning pour-over set. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-02",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Matcha moment starter kit. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-03",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Double-wall glass mug duo. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-04",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Cold-brew bottle. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-05",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Tea tasting collection. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-06",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Hand-thrown breakfast bowl. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-07",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Sunday pancake kit. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-08",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Ceramic desk coaster set. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-09",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Pocket coffee grinder. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-10",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Insulated everyday tumbler. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-11",
+      "prompt": "Use case: photorealistic-natural. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Intro to pottery afternoon. Show the real-life atmosphere of this activity, not a product pack shot. If a person is useful show an adult naturally engaged, avoid prominent faces. For a museum show a serene contemporary gallery with a visitor; for a staycation show a calm boutique hotel room, no price or booking claim. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-12",
+      "prompt": "Use case: photorealistic-natural. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Golden-hour photo walk. Show the real-life atmosphere of this activity, not a product pack shot. If a person is useful show an adult naturally engaged, avoid prominent faces. For a museum show a serene contemporary gallery with a visitor; for a staycation show a calm boutique hotel room, no price or booking claim. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-13",
+      "prompt": "Use case: photorealistic-natural. Single landscape editorial architectural photograph of an EMPTY contemporary art museum gallery. Only framed abstract geometric colour-field paintings on warm ivory walls, polished pale stone floor, a simple oak bench, soft skylight. No people, no statues, no figurative artwork, no text, no logos. Calm premium lifestyle magazine style, muted sage and terracotta palette, believable interior, 3:2 landscape. Illustrative concept for a quiet museum afternoon."
+    },
+    {
+      "id": "sample-14",
+      "prompt": "Use case: photorealistic-natural. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Beginner bouldering session. Show the real-life atmosphere of this activity, not a product pack shot. If a person is useful show an adult naturally engaged, avoid prominent faces. For a museum show a serene contemporary gallery with a visitor; for a staycation show a calm boutique hotel room, no price or booking claim. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-15",
+      "prompt": "Use case: photorealistic-natural. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Sunrise kayak outing. Show the real-life atmosphere of this activity, not a product pack shot. If a person is useful show an adult naturally engaged, avoid prominent faces. For a museum show a serene contemporary gallery with a visitor; for a staycation show a calm boutique hotel room, no price or booking claim. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-16",
+      "prompt": "Use case: photorealistic-natural. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Coffee tasting workshop. Show the real-life atmosphere of this activity, not a product pack shot. If a person is useful show an adult naturally engaged, avoid prominent faces. For a museum show a serene contemporary gallery with a visitor; for a staycation show a calm boutique hotel room, no price or booking claim. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-17",
+      "prompt": "Use case: photorealistic-natural. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Make-your-own perfume session. Show the real-life atmosphere of this activity, not a product pack shot. If a person is useful show an adult naturally engaged, avoid prominent faces. For a museum show a serene contemporary gallery with a visitor; for a staycation show a calm boutique hotel room, no price or booking claim. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-18",
+      "prompt": "Use case: photorealistic-natural. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Neighbourhood food trail. Show the real-life atmosphere of this activity, not a product pack shot. If a person is useful show an adult naturally engaged, avoid prominent faces. For a museum show a serene contemporary gallery with a visitor; for a staycation show a calm boutique hotel room, no price or booking claim. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-19",
+      "prompt": "Use case: photorealistic-natural. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Small cinema night for one. Show the real-life atmosphere of this activity, not a product pack shot. If a person is useful show an adult naturally engaged, avoid prominent faces. For a museum show a serene contemporary gallery with a visitor; for a staycation show a calm boutique hotel room, no price or booking claim. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-20",
+      "prompt": "Use case: photorealistic-natural. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Botanical sketching class. Show the real-life atmosphere of this activity, not a product pack shot. If a person is useful show an adult naturally engaged, avoid prominent faces. For a museum show a serene contemporary gallery with a visitor; for a staycation show a calm boutique hotel room, no price or booking claim. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-21",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Soft Sunday reading blanket. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-22",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Warm-glow bedside lamp. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-23",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Low-maintenance plant duo. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-24",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Linen cushion cover pair. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-25",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Evening wind-down candle. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-26",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Bookshop discovery bundle. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-27",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Compact bedside speaker. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-28",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: 1000-piece weekend puzzle. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-29",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Cotton sleep mask. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-30",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Desktop organiser tray. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-31",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Everyday lightweight tote. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-32",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Minimal everyday watch. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-33",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Personalised journal cover. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-34",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Slim cardholder. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-35",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Silver everyday pendant. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-36",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Weekend crossbody bag. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-37",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Colour-pop everyday socks. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-38",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Packable day-trip backpack. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-39",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Engraved keyring. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-40",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Everyday wireless headphones. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-41",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Watercolour pocket studio. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-42",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Film photography starter camera. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-43",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Beginner embroidery kit. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-44",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Pocket travel journal. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-45",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Beginner ukulele. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-46",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Indoor herb garden kit. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-47",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Weekend board game. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-48",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Personal milestone photo book. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-49",
+      "prompt": "Use case: product-mockup. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Calligraphy discovery set. Show exactly this type of item clearly, with accurate plausible construction, on pale oak or warm ivory linen, only minimal relevant props. No invented extra items bundled with the product. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "sample-50",
+      "prompt": "Use case: photorealistic-natural. Create ONE original landscape editorial photograph for a thoughtful shopping app, depicting: Solo staycation inspiration fund. Show the real-life atmosphere of this activity, not a product pack shot. If a person is useful show an adult naturally engaged, avoid prominent faces. For a museum show a serene contemporary gallery with a visitor; for a staycation show a calm boutique hotel room, no price or booking claim. Cohesive visual direction: premium independent lifestyle magazine, soft warm window light, sage green and muted terracotta accents, cream tones, tactile natural materials, subtle film grain, realistic photography, no 3D render. Center the subject with comfortable breathing room, landscape 3:2 frame suitable for cropping to a card. No text, no logos, no watermarks, no UI, no collage. Generic illustrative concept, not a branded merchant offer."
+    },
+    {
+      "id": "gift",
+      "prompt": "Use case: product-mockup. One landscape editorial photograph of a single beautifully wrapped small gift, natural cream paper and sage cotton ribbon, on pale oak with soft warm window light. Premium lifestyle magazine, tactile natural materials, restrained terracotta accent, generous breathing room, realistic photography. No text, logos, watermark, collage or UI. 3:2 landscape."
+    }
+  ],
+  "assets": [
+    {
+      "id": "hero",
+      "path": "public/images/rewards/hero.webp"
+    },
+    {
+      "id": "sample-01",
+      "path": "public/images/rewards/sample-01.webp"
+    },
+    {
+      "id": "sample-02",
+      "path": "public/images/rewards/sample-02.webp"
+    },
+    {
+      "id": "sample-03",
+      "path": "public/images/rewards/sample-03.webp"
+    },
+    {
+      "id": "sample-07",
+      "path": "public/images/rewards/sample-07.webp"
+    },
+    {
+      "id": "sample-08",
+      "path": "public/images/rewards/sample-08.webp"
+    },
+    {
+      "id": "sample-04",
+      "path": "public/images/rewards/sample-04.webp"
+    },
+    {
+      "id": "sample-10",
+      "path": "public/images/rewards/sample-10.webp"
+    },
+    {
+      "id": "sample-09",
+      "path": "public/images/rewards/sample-09.webp"
+    },
+    {
+      "id": "sample-11",
+      "path": "public/images/rewards/sample-11.webp"
+    },
+    {
+      "id": "sample-05",
+      "path": "public/images/rewards/sample-05.webp"
+    },
+    {
+      "id": "sample-12",
+      "path": "public/images/rewards/sample-12.webp"
+    },
+    {
+      "id": "sample-14",
+      "path": "public/images/rewards/sample-14.webp"
+    },
+    {
+      "id": "sample-15",
+      "path": "public/images/rewards/sample-15.webp"
+    },
+    {
+      "id": "sample-06",
+      "path": "public/images/rewards/sample-06.webp"
+    },
+    {
+      "id": "sample-19",
+      "path": "public/images/rewards/sample-19.webp"
+    },
+    {
+      "id": "sample-16",
+      "path": "public/images/rewards/sample-16.webp"
+    },
+    {
+      "id": "sample-20",
+      "path": "public/images/rewards/sample-20.webp"
+    },
+    {
+      "id": "sample-22",
+      "path": "public/images/rewards/sample-22.webp"
+    },
+    {
+      "id": "sample-17",
+      "path": "public/images/rewards/sample-17.webp"
+    },
+    {
+      "id": "sample-21",
+      "path": "public/images/rewards/sample-21.webp"
+    },
+    {
+      "id": "sample-23",
+      "path": "public/images/rewards/sample-23.webp"
+    },
+    {
+      "id": "sample-18",
+      "path": "public/images/rewards/sample-18.webp"
+    },
+    {
+      "id": "sample-26",
+      "path": "public/images/rewards/sample-26.webp"
+    },
+    {
+      "id": "sample-27",
+      "path": "public/images/rewards/sample-27.webp"
+    },
+    {
+      "id": "sample-24",
+      "path": "public/images/rewards/sample-24.webp"
+    },
+    {
+      "id": "sample-29",
+      "path": "public/images/rewards/sample-29.webp"
+    },
+    {
+      "id": "sample-28",
+      "path": "public/images/rewards/sample-28.webp"
+    },
+    {
+      "id": "sample-25",
+      "path": "public/images/rewards/sample-25.webp"
+    },
+    {
+      "id": "sample-30",
+      "path": "public/images/rewards/sample-30.webp"
+    },
+    {
+      "id": "sample-35",
+      "path": "public/images/rewards/sample-35.webp"
+    },
+    {
+      "id": "sample-31",
+      "path": "public/images/rewards/sample-31.webp"
+    },
+    {
+      "id": "sample-32",
+      "path": "public/images/rewards/sample-32.webp"
+    },
+    {
+      "id": "sample-36",
+      "path": "public/images/rewards/sample-36.webp"
+    },
+    {
+      "id": "sample-38",
+      "path": "public/images/rewards/sample-38.webp"
+    },
+    {
+      "id": "sample-33",
+      "path": "public/images/rewards/sample-33.webp"
+    },
+    {
+      "id": "sample-37",
+      "path": "public/images/rewards/sample-37.webp"
+    },
+    {
+      "id": "sample-39",
+      "path": "public/images/rewards/sample-39.webp"
+    },
+    {
+      "id": "sample-34",
+      "path": "public/images/rewards/sample-34.webp"
+    },
+    {
+      "id": "sample-43",
+      "path": "public/images/rewards/sample-43.webp"
+    },
+    {
+      "id": "sample-40",
+      "path": "public/images/rewards/sample-40.webp"
+    },
+    {
+      "id": "sample-45",
+      "path": "public/images/rewards/sample-45.webp"
+    },
+    {
+      "id": "sample-44",
+      "path": "public/images/rewards/sample-44.webp"
+    },
+    {
+      "id": "sample-41",
+      "path": "public/images/rewards/sample-41.webp"
+    },
+    {
+      "id": "sample-47",
+      "path": "public/images/rewards/sample-47.webp"
+    },
+    {
+      "id": "sample-48",
+      "path": "public/images/rewards/sample-48.webp"
+    },
+    {
+      "id": "sample-46",
+      "path": "public/images/rewards/sample-46.webp"
+    },
+    {
+      "id": "sample-42",
+      "path": "public/images/rewards/sample-42.webp"
+    },
+    {
+      "id": "sample-49",
+      "path": "public/images/rewards/sample-49.webp"
+    },
+    {
+      "id": "gift",
+      "path": "public/images/rewards/gift.webp"
+    },
+    {
+      "id": "sample-50",
+      "path": "public/images/rewards/sample-50.webp"
+    },
+    {
+      "id": "sample-13",
+      "path": "public/images/rewards/sample-13.webp"
+    }
+  ],
+  "mode": "Built-in image_gen; optimized to WebP for delivery"
+}

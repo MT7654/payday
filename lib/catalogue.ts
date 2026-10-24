@@ -54,7 +54,7 @@ const rows:[string,string,number,string,string,string,string][]=[
  ['Solo staycation inspiration fund','Experiences',150,'trip','Mark a milestone','Set aside a little budget for a change of scenery.','A planning concept, not a hotel booking or quoted rate.'],
 ];
 const palettes=['#eee9dc','#e4ede4','#f5e2d7','#e8e3ef','#e1eaf0'];
-export const catalogue:Sample[]=rows.map((r,i)=>({id:`sample-${String(i+1).padStart(2,'0')}`,name:r[0],category:r[1],price:r[2],art:r[3],mood:r[4],description:r[5],reason:r[5],tradeoff:r[6],tags:[r[1],r[4],r[3]],color:palettes[i%palettes.length],merchant:'Sample recommendation',url:'',checkedAt:'',sources:[],mode:'demo',totalCostKnown:false}));
+export const catalogue:Sample[]=rows.map((r,i)=>({id:`sample-${String(i+1).padStart(2,'0')}`,name:r[0],category:r[1],price:r[2],art:r[3],mood:r[4],description:r[5],reason:r[5],tradeoff:r[6],tags:[r[1],r[4],r[3]],color:palettes[i%palettes.length],merchant:'Curated idea',url:'',checkedAt:'',sources:[],mode:'demo',totalCostKnown:false}));
 export function sampleMatches(budget:number,direction:string,excluded='',reactions:string[]=[]):Sample[]{
  const terms=excluded.toLowerCase().split(/[,;\n]/).map(t=>t.trim()).filter(Boolean);
  const words=`${direction} ${reactions.join(' ')}`.toLowerCase().split(/\W+/).filter(w=>w.length>3);
