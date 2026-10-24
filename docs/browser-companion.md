@@ -34,4 +34,6 @@ Extension and app storage are separate. Unsharing prevents future transfers; it 
 
 ZIP: `public/downloads/payday-extension.zip`, containing extension files at its root. Extract and Load unpacked in Chrome 116+. It is not a Chrome Web Store release. The bridge intentionally targets the production origin, not localhost or arbitrary sites.
 
-Validated with TypeScript, 33 automated tests (including URL filtering, correction precedence, excluded intent, bridge nonce/origin handling, worker sender authorization and incognito exclusion), and a local visual check of the companion screen and no-history path. Actual installation in a Chrome profile and permission dialogs require a browser supporting extensions; the app preview browser does not.
+Validated with TypeScript, the full automated test suite (including URL filtering, correction precedence, excluded intent, bridge nonce/origin handling, worker sender authorization and incognito exclusion), and a local visual check of the companion screen and no-history path. Actual installation in a Chrome profile and permission dialogs require a browser supporting extensions; the app preview browser does not.
+
+The release incorporates the latest GitHub backend/security changes and their research-lease migration. Sites applies pending Drizzle migrations before publishing. React type definitions are aligned at 19.3 to resolve the upstream dependency mismatch.

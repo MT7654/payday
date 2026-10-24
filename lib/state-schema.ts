@@ -41,7 +41,7 @@ const session = z.object({
   evidence: z.record(id, evidence).refine(value => Object.keys(value).length <= 100), stage: z.number().int().min(0).max(2), updatedAt: instant,
 });
 const idea = z.object({ id, title: text, description: text, reason: text, practical: text, minCost: z.number().finite().nonnegative(), maxCost: z.number().finite().nonnegative(), art: z.string().max(50), keywords: z.array(z.string().max(200)).max(30) });
-const brief = z.object({ entry: z.enum(['discover', 'fit', 'wishlist']), budget: z.number().positive().max(100000), intention: text, situation: text, details: text, location: text, people: z.number().int().min(1).max(20), exclusions: text, owns: text, effort: text, format: z.enum(['any', 'own', 'do', 'give']), query: text, priority: text, mode });
+const brief = z.object({ candidateURLs:z.array(z.string().url().max(1500).refine(v=>{try{const u=new URL(v);return u.protocol==='https:'&&!u.username&&!u.password&&!u.search&&!u.hash;}catch{return false;}})).max(6).optional(), entry: z.enum(['discover', 'fit', 'wishlist']), budget: z.number().positive().max(100000), intention: text, situation: text, details: text, location: text, people: z.number().int().min(1).max(20), exclusions: text, owns: text, effort: text, format: z.enum(['any', 'own', 'do', 'give']), query: text, priority: text, mode });
 const journal = z.object({
   version: z.literal(2), usualBudget: z.number().positive().max(100000),
   draft: z.object({ step: z.number().int().min(0).max(10), brief, ideas: z.array(idea).max(30), chosen: idea.nullable(), products: z.array(product).max(3), rejections: z.array(z.object({ id, title: text, reason: text })).max(100), startedAt: instant }).nullable(),

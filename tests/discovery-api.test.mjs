@@ -8,6 +8,14 @@ import { evidencedProduct } from '../lib/research-evidence.ts';
 import { database, state, request, candidate, research } from './helpers.mjs';
 
 const input = { action: 'products', mode: 'live', budget: 50, intention: 'Comfort', direction: '', interests: '', exclusions: '', reactions: [] };
+test('browser candidates reach grounded research as unverified clues and unsafe candidates are rejected',async()=>{
+ const app=setup();
+ const response=await app.POST(request({...input,candidateURLs:['https://shop.example/products/camera']},'POST'));
+ assert.equal(response.status,200);
+ assert.ok(app.prompts.some(p=>p.includes('unverifiedBrowsingCandidates')&&p.includes('https://shop.example/products/camera')));
+ assert.equal((await app.POST(request({...input,candidateURLs:['javascript:alert(1)']},'POST'))).status,400);
+ app.db.sqlite.close();
+});
 function setup() {
   const db = database(); let user = 'alice'; const prompts = []; let responseCalls = 0;
   const deps = { loadState: discoveryState(async () => user ? { userId: user } : null, () => db), begin: request => beginPublicResearch(new Request(request.url, { signal: request.signal, headers: { 'cf-connecting-ip': '192.0.2.1' } }), { database: db, secret: 'test-secret' }),
