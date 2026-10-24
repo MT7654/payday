@@ -1,3 +1,4 @@
+import { requestBoundary } from "../lib/request-boundary";
 import handler from "vinext/server/fetch-handler";
 import { runWithConnectorBinding } from "../lib/connector-context";
 import type { ConnectorBinding } from "../lib/connector-contract.mjs";
@@ -23,7 +24,7 @@ const worker = {
         },
       };
     }
-    return runWithConnectorBinding(binding, () => handler.fetch(request, env, ctx));
+    return requestBoundary(request, () => runWithConnectorBinding(binding, () => handler.fetch(request, env, ctx)));
   },
 };
 

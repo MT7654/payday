@@ -8,6 +8,13 @@
       "when": 1792854353206,
       "tag": "0000_special_warhawk",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1792864523215,
+      "tag": "0001_lush_jazinda",
+      "breakpoints": true
     }
   ]
 }
