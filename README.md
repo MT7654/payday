@@ -45,8 +45,8 @@ Visit http://127.0.0.1:3003. Local loopback preview provides simulated ChatGPT s
 ## Checks
 
 ```sh
-npx tsc --noEmit
-node --experimental-strip-types --test tests/rewards.test.mjs tests/catalogue.test.mjs
+npm run typecheck
+npm test
 npm run build
 ```
 
@@ -66,9 +66,9 @@ npm run build
 
 Built with React, TypeScript and the Sites Vinext starter, deployed on Cloudflare Workers through Sites with D1 storage. `.openai/hosting.json` identifies the existing deployment; keep its identity when updating this app. GitHub stores the source; pushing here does not automatically deploy to Sites.
 
-The OpenAI key is a server-side secret. `.env`, `.dev.vars`, database state, dependencies and build archives are ignored. Hosted secrets are configured separately from local settings. Private records are keyed by the authenticated user ID, with optimistic revisions to detect conflicting saves.
+The OpenAI key is a server-side secret. `.env`, `.dev.vars`, database state, dependencies and build archives are ignored. Hosted secrets are configured separately from local settings. Private records are keyed by the authenticated user ID, with optimistic revisions to detect conflicting saves. Deleting personal content retains an empty state row, user identifier, timestamp and increasing revision; this prevents an older tab from restoring deleted plans. No new database migration is required for this behavior.
 
-Browser alerts require the app to stay open; imported calendar reminders handle closed-app alerts. No email/SMS or background push service is included. Live research has a per-user daily request cap and depends on available public sources; community evidence is anecdotal, not a statistical confidence score.
+Browser alerts require the app to stay open; imported calendar reminders handle closed-app alerts. No email/SMS or background push service is included. Live research loads the signed-in user’s saved purchase, rejection and satisfaction history. Removing an item from Saved finds removes that item from future recommendation context. Research has a per-user daily request cap and depends on available public sources; community evidence is anecdotal, not a statistical confidence score.
 
 ## Design references
 
@@ -79,3 +79,16 @@ Mobbin references informed the earlier browsing layout; the current design repla
 - [Faire product grid](https://mobbin.com/screens/24288f35-d083-44da-b4c1-eac44c89150b)
 
 Mobbin screenshots are not bundled in this repository. Product concept images were generated with the built-in image generation tool.
+
+## Backend safeguards
+
+- State requests validate nested products, sessions, dates and timezones, and enforce a 400 KB request-body limit while streaming.
+- Saves retry temporary failures and reconcile lost responses before retrying writes. Revision conflicts pause saving; users can export unsaved changes before reloading. The interface only reports all changes saved after server acknowledgement.
+- Explicit exclusions and common negative phrases are filtered in both sample and live shortlists. This is a bounded phrase parser, not a guarantee that every possible natural-language constraint is understood. AI still interprets broader preferences.
+- Purchases, skipped items and regretted items are omitted from future shortlists. Retailer visits preserve purchase status and satisfaction feedback. Live product IDs remain stable across repeated research of the same merchant URL.
+- Live prices require an exact-model excerpt and an SGD item-price excerpt tied to the same cited merchant URL. Shipping, additional tax and totals remain unknown unless supported. Known mandatory costs are checked against the budget even when other fees are unknown.
+- Price evidence is derived from cited AI search summaries, not independently fetched or verified retailer pages. The interface exposes the supporting excerpts and this limitation. Confirm stock, model, shipping and final prices with the merchant.
+- Community claims require supporting cited passages from recognised Reddit, HardwareZone or Head-Fi thread URLs. Search pages and merchant pages are excluded. Additional forums should be added with URL-validation tests; absence of supported discussion is not evidence of poor quality.
+- The two AI stages share a single 90-second deadline. Tests use stubbed AI responses and an isolated SQLite database; they never call paid AI APIs or alter hosted data.
+
+`npm test` includes API ownership, quota, schema validation, deletion/save races, save retry/recovery, preference history and evidence-grounding regression cases, as well as the original catalogue and reminder tests. Use Node 24 for the built-in SQLite test adapter.
