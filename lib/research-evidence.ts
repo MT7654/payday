@@ -30,7 +30,14 @@ function supportsAmount(fact: PriceFact, amount: number) {
   const fieldLabel = { item: /./, shipping: /shipping|delivery/i, tax: /tax|gst/i, total: /total|all.in/i, model: /./ }[fact.field];
   if (!fieldLabel.test(fact.quote)) return false;
   const values = [...fact.quote.matchAll(/(?:S\$|SGD\s*\$?)\s*([\d,]+(?:\.\d{1,2})?)/gi)].map(match => cents(Number(match[1].replaceAll(',', ''))));
-  if (amount === 0 && values.length === 0 && /free|included|no (?:shipping|delivery|tax|gst)/i.test(fact.quote)) return true;
+  if (amount === 0 && (fact.field === 'shipping' || fact.field === 'tax')) {
+    // Conditional offers and negated inclusions do not establish a zero fee.
+    if (/\b(?:not|isn['’]t|aren['’]t|excluded|excluding|unless|if|when|over|above|minimum|from|starting|subject|may|might)\b/i.test(fact.quote)) return false;
+    if (values.length === 0) {
+      const label = fact.field === 'shipping' ? '(?:shipping|delivery)' : '(?:tax|taxes|gst)';
+      return new RegExp(`^(?:free ${label}|no ${label}(?: (?:fee|fees|charge|charges))?|${label}(?: is| are)?(?:[: ]+)free|${label}(?: is| are)?(?:[: ]+)included(?: in (?:the )?(?:price|total))?)[.!]?$`, 'i').test(fact.quote.trim());
+    }
+  }
   // Require one unambiguous SGD amount in each cost excerpt.
   return values.length === 1 && values[0] === cents(amount);
 }

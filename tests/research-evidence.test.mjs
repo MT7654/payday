@@ -69,3 +69,28 @@ test('search results are not treated as cited passages unless annotations suppor
   assert.equal(result.sources.length, 2); assert.equal(result.passages.length, 1);
   assert.equal(result.passages[0].text.includes('Other claim'), false);
 });
+
+test('zero fees require unconditional affirmative evidence, not negated or conditional wording', async () => {
+  for (const [field, quote, supported] of [
+    ['shipping', 'Shipping not included.', false],
+    ['shipping', 'Shipping is not free.', false],
+    ['shipping', 'Free shipping over S$50.', false],
+    ['shipping', 'Shipping S$0 if minimum spend is met.', false],
+    ['tax', 'Tax excluded.', false],
+    ['tax', 'Tax not included.', false],
+    ['shipping', 'Free shipping.', true],
+    ['shipping', 'Shipping included in the price.', true],
+    ['shipping', 'No delivery charges.', true],
+    ['tax', 'GST included.', true],
+    ['tax', 'Tax included S$0.', true],
+  ]) {
+    const value = candidate(); value.pricing[field] = 0;
+    value.pricing.total = 40 + (field === 'shipping' ? 0 : 5);
+    value.pricing.evidence.find(f => f.field === field).quote = quote;
+    value.pricing.evidence.find(f => f.field === 'total').quote = `Total S$${value.pricing.total}.`;
+    const text = value.pricing.evidence.map(f => f.quote).join(' ');
+    const product = await evidencedProduct(value, { text, sources: research.sources, passages: [{ url: value.url, text }] });
+    assert.equal(product.pricing[field], supported ? 0 : null, quote);
+    assert.equal(product.totalCostKnown, supported, quote);
+  }
+});
