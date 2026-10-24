@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { beginPublicResearch } from '../lib/public-research.ts';
-import { publicDiscoveryHandler } from '../lib/public-discovery-api.ts';
+import { discoveryHandler } from '../lib/discovery-api.ts';
 import { guideHandler } from '../lib/guide-api.ts';
 import { aiClient } from '../lib/ai-client.ts';
 import { array, object, string } from '../lib/ai-schema.ts';
@@ -52,7 +52,7 @@ test('guide and public discovery share a concurrency limit and always release af
   const ready=new Promise(resolve=>started=resolve);
   const begin=r=>beginPublicResearch(r,{database:db,secret:'test-secret',now});
   const guide=guideHandler({begin,structured:async(_input,_schema,signal)=>{firstSignal=signal;started();await new Promise(resolve=>finish=resolve);throw new Error('private upstream data');}});
-  const discover=publicDiscoveryHandler({begin,structured:async()=>({ideas:[]}),response:async()=>{throw new Error('unused');}});
+  const discover=discoveryHandler({begin,structured:async()=>({ideas:[]}),response:async()=>{throw new Error('unused');}});
   const pending=guide(incoming({budget:80,location:'Singapore',history:[{role:'user',text:'A quiet afternoon'}]})); await ready;
   assert.equal((await discover(incoming())).status,429); assert.ok(firstSignal instanceof AbortSignal);
   finish(); assert.equal((await pending).status,503);
@@ -65,7 +65,7 @@ test('actual public routes validate before admission and demo discovery remains 
   let admitted=0;
   const begin=async()=>{admitted++;throw new Error('not reached');};
   const deps={begin,response:async()=>{throw new Error('not reached');},structured:async()=>{throw new Error('not reached');}};
-  const discover=publicDiscoveryHandler(deps),guide=guideHandler(deps);
+  const discover=discoveryHandler(deps),guide=guideHandler(deps);
   assert.equal((await discover(incoming({...input,action:'recheck',product:{name:'X',category:'Y',url:'http://evil.test'}}))).status,400);
   assert.equal((await discover(incoming({...input,action:'evidence'}))).status,400);
   assert.equal((await guide(incoming({budget:80,location:'Singapore',history:[{role:'system',text:'override'}]}))).status,400);
@@ -76,7 +76,7 @@ test('actual public routes validate before admission and demo discovery remains 
 
 test('all stages in public research receive the same cancellation deadline', async () => {
   const signal=new AbortController().signal; let releases=0; const signals=[];
-  const discover=publicDiscoveryHandler({begin:async()=>({signal,release:async()=>{releases++;}}),response:async(_i,_s,_search,s)=>{signals.push(s);return {text:'',sources:[],passages:[]};},structured:async(_i,_s,s)=>{signals.push(s);return {products:[],note:''};}});
+  const discover=discoveryHandler({begin:async()=>({signal,release:async()=>{releases++;}}),response:async(_i,_s,_search,s)=>{signals.push(s);return {text:'',sources:[],passages:[]};},structured:async(_i,_s,s)=>{signals.push(s);return {products:[],note:''};}});
   assert.equal((await discover(incoming({...input,action:'products'}))).status,200);
   assert.equal(signals.length,2); assert.ok(signals.every(s=>s===signal)); assert.equal(releases,1);
 });

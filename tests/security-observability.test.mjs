@@ -6,6 +6,7 @@ import { sameOrigin, limitedBody, HttpError, failure } from '../lib/http.ts';
 import { stateHandlers } from '../lib/state-api.ts';
 import { aiClient } from '../lib/ai-client.ts';
 import { acquireResearch } from '../lib/research-limit.ts';
+import { beginPublicResearch } from '../lib/public-research.ts';
 import { discoveryHandler } from '../lib/discovery-api.ts';
 import { database, request, state } from './helpers.mjs';
 
@@ -114,7 +115,7 @@ test('research leases serialize per owner, recover expired workers, and cannot r
 test('parallel paid research is blocked before quota and provider calls; failure releases the lease', async () => {
   const db = database(); let calls = 0, finish, started;
   const pending = new Promise(resolve => { started = resolve; });
-  const handler = discoveryHandler({ owner: async () => 'alice', database: () => db, response: async () => { throw new Error('unused'); }, structured: async () => { calls++; started(); await new Promise(resolve => { finish = resolve; }); throw new Error('provider unavailable'); } });
+  const handler = discoveryHandler({ begin: request => beginPublicResearch(new Request(request.url, { signal: request.signal, headers: { 'cf-connecting-ip': '192.0.2.1' } }), { database: db, secret: 'test-secret' }), response: async () => { throw new Error('unused'); }, structured: async () => { calls++; started(); await new Promise(resolve => { finish = resolve; }); throw new Error('provider unavailable'); } });
   const body = { action: 'scenarios', mode: 'live', budget: 50, intention: 'Comfort' };
   const first = handler(request(body, 'POST')); await pending;
   const second = await handler(request(body, 'POST'));

@@ -7,7 +7,7 @@ export type CitationPassage = { url: string; text: string };
 export type Research = { text: string; sources: Source[]; passages: CitationPassage[] };
 const tidy = (value: string) => value.replace(/\s+/g, ' ').trim().toLowerCase();
 export function supportedQuote(fact: { url: string; quote: string }, research: Research) {
-  return !!safeURL(fact.url) && research.passages.some(passage => passage.url === fact.url && tidy(passage.text).includes(tidy(fact.quote))) && fact.quote.trim().length > 0;
+  return !!safeURL(fact.url) && research.sources.some(source => source.url === fact.url) && research.passages.some(passage => passage.url === fact.url && tidy(passage.text).includes(tidy(fact.quote))) && fact.quote.trim().length > 0;
 }
 export function discussionURL(raw: string) {
   try {
