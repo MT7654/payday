@@ -26,3 +26,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+import "./browser-interests.css";

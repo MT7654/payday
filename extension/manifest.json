@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "Payday — Things that caught your eye",
+  "version": "1.0.0",
+  "minimum_chrome_version": "116",
+  "description": "Keep shopping interests on your device. Share a shortlist with Payday when you want help choosing a treat.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "sidePanel",
+    "alarms"
+  ],
+  "optional_permissions": [
+    "history",
+    "notifications"
+  ],
+  "optional_host_permissions": [
+    "https://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Open Payday companion"
+  },
+  "side_panel": {
+    "default_path": "panel.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://payday-reward-discovery.maltoh12345.chatgpt.site/*"
+      ],
+      "js": [
+        "bridge.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "128": "icon.png"
+  }
+}

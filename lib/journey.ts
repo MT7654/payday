@@ -11,7 +11,7 @@ export const intentions = [
  {id:'unsure',title:'Help me figure it out',description:'Start with a possibility, not a product.',icon:'◇',question:'What would feel worthwhile this month?',choices:['Easier weekdays','A better weekend','Something to look forward to']},
 ] as const;
 export type Idea={id:string;title:string;description:string;reason:string;practical:string;minCost:number;maxCost:number;art:string;keywords:string[]};
-export type Brief={entry:'discover'|'fit'|'wishlist';budget:number;intention:string;situation:string;details:string;location:string;people:number;exclusions:string;owns:string;effort:string;format:'any'|'own'|'do'|'give';query:string;priority:string;mode:'demo'|'live'};
+export type Brief={candidateURLs?:string[];entry:'discover'|'fit'|'wishlist';budget:number;intention:string;situation:string;details:string;location:string;people:number;exclusions:string;owns:string;effort:string;format:'any'|'own'|'do'|'give';query:string;priority:string;mode:'demo'|'live'};
 export type Rejection={id:string;title:string;reason:string};
 export type Journey={step:number;brief:Brief;ideas:Idea[];chosen:Idea|null;products:Product[];rejections:Rejection[];startedAt:string};
 export type Find=Product & {savedAt:string;brief:Brief;idea?:Idea|null;decision:'saved'|'visited'|'bought'|'skipped';used?:string;satisfaction?:string;feedback?:string;experienceDate?:string;evidence?:Evidence};
