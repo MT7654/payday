@@ -1,16 +1,11 @@
-# Payday companion — presentation edition
-Version 2 replaces the browsing collector with a prepared four-interest experience. The main UI uses normal product language: Your interests, For me, Share, and Explore in Payday. About discloses that this presentation uses sample interests and does not collect browsing activity.
+# Payday companion 2.1
 
-## Architecture
-Only storage and sidePanel permissions remain. No history, tabs, activeTab, scripting, host permissions, alarms or notifications. The sole static content script is the exact-origin app bridge. Capture code is removed, and the worker rejects capture/save/history messages. It only allows updates to entries in the bundled catalogue. Version migration clears legacy extension storage. Old installations should be removed before loading the new package so old permissions and scripts cannot remain active.
+Extract payday-extension-v2.1.zip. Open chrome://extensions, enable Developer mode and Load unpacked. To update an existing unpacked installation, replace its files and click Reload. Approve changed permissions if prompted, and reload Payday tabs. Pin the extension.
 
-Items carry kind=prepared through app validation, storage and AI context. The app presents them as interests, never recorded browsing or purchases. Prepared placeholder URLs are not clickable and are excluded from merchant candidate research. Actual AI discovery and web research remain live. No-context discovery remains available.
+Open a public product page and click the Payday toolbar icon to grant access to that tab. Click Detect & add. A visible-tab screenshot, title hint and cleaned URL are sent through Payday to OpenAI. Check that no private information is visible. One clear product is saved immediately; ambiguous products get a choice/name review. Existing cards also have Add to shortlist, which does not call AI. Stay on the shopping site: no Payday import step is needed.
 
-## Handoff
-Open the extension, mark one or two items For me and Share, open Payday, Bring in my shortlist, review, then Explore these interests. A gift item starts excluded. Sharing is off by default. Restore starting interests is under About. Extension and app copies are managed separately.
+The API key stays on the server. No history or background browsing collection. Only Payday has persistent host access; activeTab and scripting apply to the user-invoked tab. An inactive temporary Payday tab may briefly open for AI relay and local storage, then closes. Existing tabs are not navigated or closed. No screenshot is retained by Payday or the extension; OpenAI processes submitted API inputs under its data policies (store:false).
 
-## Packaging
-public/downloads/payday-extension.zip contains version 2 at its root. An additional payday-extension-v2.zip link avoids browser download caches. The workspace outputs folder also contains the ZIP. No secrets or browsing observations are packaged.
+Saved interests contain name, cleaned URL, intent and date. Prices, stock and purchases are not inferred. Saves acknowledge completed persistence, preserve app corrections and exclusions, and respect capacity. Removing extension data does not remove app copies. Prepared starting interests remain disclosed in About. Same Chrome profile required. No API key is packaged.
 
-## Verification
-Unit tests cover permission absence, refusal of capture messages, local-data migration, shared-item filtering, gift exclusion, exact-origin bridge restrictions, import schema and cold-start behavior. Actual installation in Chrome cannot be exercised in the in-app preview browser.
+Automated tests cover origin/frame boundaries, deduplication, persistence failure, excluded interests, temporary-tab cleanup, request-size bounds, API errors and quota release. Chrome installation and permission grants require browser testing; a mocked UI preview alone does not establish end-to-end Chrome behavior.

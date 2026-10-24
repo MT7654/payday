@@ -1,12 +1,14 @@
 {
   "manifest_version": 3,
   "name": "Payday — Things that caught your eye",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "minimum_chrome_version": "116",
   "description": "A thoughtful shortlist for your next payday. Review your interests and explore what would make your day.",
   "permissions": [
     "storage",
-    "sidePanel"
+    "sidePanel",
+    "activeTab",
+    "scripting"
   ],
   "background": {
     "service_worker": "background.js",
@@ -24,6 +26,7 @@
         "https://payday-reward-discovery.maltoh12345.chatgpt.site/*"
       ],
       "js": [
+        "shortlist-store.js",
         "bridge.js"
       ],
       "run_at": "document_idle"
@@ -31,5 +34,8 @@
   ],
   "icons": {
     "128": "icon.png"
-  }
+  },
+  "host_permissions": [
+    "https://payday-reward-discovery.maltoh12345.chatgpt.site/*"
+  ]
 }

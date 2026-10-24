@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import vm from 'node:vm';
+import {readFileSync} from 'node:fs';
+import {deliverShortlist,requestPayday} from '../extension/delivery.js';
+const item={id:'https://shop.example/mac-mini',url:'https://shop.example/mac-mini',name:'Mac mini',source:'shop.example',kind:'saved',intent:'me',seenAt:'2026-10-25'};
+function store(raw){let value=raw;return {getItem:()=>value,setItem:(_,v)=>value=v,read:()=>JSON.parse(value)};}
+const ctx=vm.createContext({URL});vm.runInContext(readFileSync(new URL('../extension/shortlist-store.js',import.meta.url),'utf8'),ctx);
+test('direct save persists once and preserves explicit app corrections and removals',()=>{const storage=store(null);assert.equal(ctx.savePaydayShortlist(storage,[item]).saved.length,1);ctx.savePaydayShortlist(storage,[item]);assert.equal(storage.read().items.length,1);for(const memory of [{items:[{...item,intent:'gift'}],ignored:[]},{items:[],ignored:[item.id]}]){const s=store(JSON.stringify(memory));assert.equal(ctx.savePaydayShortlist(s,[item]).skipped.length,1);assert.deepEqual(s.read(),memory);}});
+test('invalid items and unavailable storage never acknowledge a save',()=>{assert.throws(()=>ctx.savePaydayShortlist(store(null),[{...item,url:'javascript:alert(1)'}]));assert.throws(()=>ctx.savePaydayShortlist({getItem:()=>null,setItem:()=>{throw Error('Quota');}},[item]));});
+test('direct delivery reuses a ready Payday tab without navigating the user',async()=>{const calls=[];const tabs={query:async q=>{assert.match(q.url,/chatgpt.site/);return [{id:5}];},sendMessage:async(id,m)=>{calls.push(m.type);return m.type==='payday-ready'?{ready:true}:{saved:[item.id],skipped:[]};}};assert.equal((await deliverShortlist([item],tabs)).saved.length,1);assert.deepEqual(calls,['payday-ready','save-shortlist']);});
+test('temporary tab is inactive and always closes, including AI failure; no repeated AI charge',async()=>{let removed=0,requests=0;const tabs={query:async()=>[],create:async opts=>{assert.equal(opts.active,false);return {id:6};},sendMessage:async(id,m)=>{if(m.type==='payday-ready')return {ready:true};requests++;return {error:'AI unavailable'};},remove:async id=>{assert.equal(id,6);removed++;}};await assert.rejects(requestPayday({type:'identify-product'},tabs,async()=>{}),/AI unavailable/);assert.equal(requests,1);assert.equal(removed,1);});
+test('timeout closes temporary tab without writing a false success',async()=>{let closed=false;const tabs={query:async()=>[],create:async()=>({id:8}),sendMessage:async()=>{throw Error('not ready');},remove:async()=>{closed=true;}};await assert.rejects(deliverShortlist([item],tabs,async()=>{}),/connect/);assert.equal(closed,true);});

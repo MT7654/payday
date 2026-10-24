@@ -3,8 +3,9 @@ import { HttpError, limitedBody } from './http.ts';
 import { extractResearch } from './research-evidence.ts';
 import { event } from './telemetry.ts';
 
+export type AIInput = string | {role:'user';content:({type:'input_text';text:string}|{type:'input_image';image_url:string;detail:'auto'})[]}[];
 export function aiClient(config: Record<string, string>, transport: typeof fetch = fetch) {
-  async function response(input: string, schema?: unknown, search = false, signal?: AbortSignal) {
+  async function response(input: AIInput, schema?: unknown, search = false, signal?: AbortSignal) {
     const started = performance.now();
     let status: number | undefined;
     try {
@@ -50,7 +51,7 @@ export function aiClient(config: Record<string, string>, transport: typeof fetch
       throw safe;
     }
   }
-  async function structured(input: string, schema: unknown, signal?: AbortSignal) {
+  async function structured(input: AIInput, schema: unknown, signal?: AbortSignal) {
     const result = await response(input, schema, false, signal);
     let parsed: unknown;
     try { parsed = JSON.parse(result.text); }

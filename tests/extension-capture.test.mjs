@@ -1,0 +1,10 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+test('on-demand screen capture relays to AI and saves only the identified product',async()=>{
+ let listener;const APP='https://payday-reward-discovery.maltoh12345.chatgpt.site';const data={edition:2,items:[]};let captures=0,vision=0;
+ const tab={id:1,windowId:3,url:'https://shop.example/mac-mini?tracking=removed'};
+ globalThis.chrome={sidePanel:{setPanelBehavior:async()=>{}},runtime:{id:'test',getURL:p=>'chrome-extension://test/'+p,onInstalled:{addListener(){}},onMessage:{addListener:fn=>listener=fn}},storage:{local:{get:async()=>structuredClone(data),set:async v=>Object.assign(data,v)}},tabs:{query:async q=>q.active?[tab]:[{id:2}],captureVisibleTab:async(id,opts)=>{assert.equal(id,3);assert.equal(opts.format,'jpeg');captures++;return 'data:image/jpeg;base64,/9j/AA==';},sendMessage:async(id,m)=>{if(m.type==='payday-ready')return {ready:true};if(m.type==='identify-product'){vision++;assert.equal(m.payload.url,'https://shop.example/mac-mini');assert.match(m.payload.image,/base64/);return {products:[{name:'Mac mini',confidence:'high'}],message:''};}return {saved:m.items.map(x=>x.id),skipped:[]};}},scripting:{executeScript:async()=>[{result:{name:'Mac mini | Shop',url:tab.url,confident:true}}]}};
+ await import('../extension/background.js');const sender={id:'test',url:'chrome-extension://test/panel.html'};const call=m=>new Promise(resolve=>{if(!listener(m,sender,resolve))resolve(undefined);});
+ assert.equal(captures,0);const result=await call({type:'capture-current'});assert.equal(result.products[0].name,'Mac mini');assert.equal(captures,1);assert.equal(vision,1);assert.equal(data.items.length,0);
+ const saved=await call({type:'save-captured',item:{...result.item,name:result.products[0].name}});const sent=await call({type:'send-shortlist',ids:[saved.id]});assert.equal(sent.saved.length,1);assert.equal(data.items[0].name,'Mac mini');assert.doesNotMatch(JSON.stringify(data),/base64|tracking/);
+ delete globalThis.chrome;
+});

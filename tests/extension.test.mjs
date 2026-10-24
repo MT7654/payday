@@ -5,7 +5,7 @@ import vm from 'node:vm';
 const APP='https://payday-reward-discovery.maltoh12345.chatgpt.site';
 test('bridge rejects foreign origins, frames, and unknown message types',async()=>{
  let listener;const responses=[],sent=[];const window={top:null,addEventListener:(_,fn)=>listener=fn,postMessage:(m,o)=>responses.push([m,o])};window.top=window;
- vm.runInNewContext(readFileSync(new URL('../extension/bridge.js',import.meta.url),'utf8'),{window,location:{origin:APP},chrome:{runtime:{sendMessage:async m=>{sent.push(m);return {items:[]};}}}});
+ vm.runInNewContext(readFileSync(new URL('../extension/bridge.js',import.meta.url),'utf8'),{window,location:{origin:APP},chrome:{runtime:{onMessage:{addListener(){}},sendMessage:async m=>{sent.push(m);return {items:[]};}}}});
  const event={source:window,origin:APP,data:{channel:'payday-request',type:'read-shared',nonce:'123'}};
  await listener({...event,origin:'https://evil.example'});await listener({...event,source:{}});await listener({...event,data:{...event.data,type:'all-history'}});assert.equal(sent.length,0);
  await listener(event);assert.equal(sent.length,1);assert.equal(responses[0][1],APP);assert.equal(responses[0][0].nonce,'123');
@@ -30,10 +30,10 @@ test('prepared companion never reads browsing data and only shares selected cata
  await call({type:'restore'},panel);assert.equal((await call({type:'state'},panel)).items.length,4);
  delete globalThis.chrome;
 });
-test('packaged extension requests no browsing access and contains no capture code',()=>{
+test('extension limits persistent access to Payday and never observes background browsing',()=>{
  const manifest=JSON.parse(readFileSync(new URL('../extension/manifest.json',import.meta.url),'utf8'));
- assert.deepEqual(manifest.permissions,['storage','sidePanel']);
- assert.equal(manifest.optional_permissions,undefined);assert.equal(manifest.optional_host_permissions,undefined);assert.equal(manifest.host_permissions,undefined);
+ assert.deepEqual(manifest.permissions,['storage','sidePanel','activeTab','scripting']);
+ assert.equal(manifest.optional_permissions,undefined);assert.equal(manifest.optional_host_permissions,undefined);assert.deepEqual(manifest.host_permissions,[APP+'/*']);
  assert.deepEqual(manifest.content_scripts[0].matches,[APP+'/*']);
- for(const file of ['background.js','panel.js'])assert.doesNotMatch(readFileSync(new URL('../extension/'+file,import.meta.url),'utf8'),/chrome\.(history|tabs|scripting|webNavigation|webRequest|cookies)/);
+ for(const file of ['background.js','panel.js'])assert.doesNotMatch(readFileSync(new URL('../extension/'+file,import.meta.url),'utf8'),/chrome\.(history|webNavigation|webRequest|cookies)/);
 });
