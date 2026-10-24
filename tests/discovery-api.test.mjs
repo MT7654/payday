@@ -112,3 +112,31 @@ test('shortlist rejects per-person pricing for a party and cannot invent stock',
   assert.deepEqual((await (await app.POST(request(input, 'POST'))).json()).products, []);
   app.db.sqlite.close();
 });
+
+test('shortlist and recheck require the quoted price to cover explicit participants', async () => {
+  for (const [suffix, accepted] of [
+    [', warranty for 2 years.', false],
+    [' for 2 hours.', false],
+    [' for 2 participants.', true],
+    [' total for a group of 2 adults.', true],
+    [' per person for 2 participants.', false],
+    [' for 3 participants.', false],
+  ]) {
+    for (const action of ['products', 'recheck']) {
+      const app = setup(); const value = candidate();
+      value.pricing.evidence.find(f => f.field === 'item').quote = `Acme Headphones item S$40${suffix}`;
+      const text = value.pricing.evidence.map(f => f.quote).join(' ') + ' Acme Headphones in stock.';
+      app.deps.response = async () => ({ text, sources: research.sources, passages: [{ url: value.url, text }] });
+      app.deps.structured = async (_prompt, schema) => {
+        if (schema.properties.products) return { products: [value], note: '' };
+        if (schema.properties.checks) return { checks: [{ id: (await evidencedProduct(candidate(), research)).id, allowed: true, stockQuote: 'Acme Headphones in stock.' }] };
+        return { url: value.url, quote: 'Acme Headphones in stock.', allowed: true };
+      };
+      const response = await app.POST(request({ ...input, action, people: 2, product: { name: value.name, category: value.category, url: value.url } }, 'POST'));
+      assert.equal(response.status, 200);
+      const result = await response.json();
+      assert.equal(action === 'products' ? result.products.length === 1 : result.available, accepted, `${action}: ${suffix}`);
+      app.db.sqlite.close();
+    }
+  }
+});
