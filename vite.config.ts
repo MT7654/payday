@@ -17,7 +17,11 @@ const managedLinux = readExecutionProfile() === "managed-linux";
 
 const localBindingConfig = {
   main: "./worker/index.ts",
+  // Identity headers are trusted only behind the Sites gateway.
+  workers_dev: false,
+  preview_urls: false,
   compatibility_flags: ["nodejs_compat"],
+  observability: { enabled: true, head_sampling_rate: 1, logs: { invocation_logs: false } },
   d1_databases: d1
     ? [
         {

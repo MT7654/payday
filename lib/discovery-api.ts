@@ -1,3 +1,4 @@
+import { acquireResearch } from './research-limit.ts';
 import { z } from 'zod';
 import { sampleMatches } from './catalogue.ts';
 import { array, object, string } from './ai-schema.ts';
@@ -25,7 +26,7 @@ const productFormat = object({ products: array(object({
 const claimFormat = object({ text: string, citations: array(object({ url: string, quote: string })) });
 function modelOutput<T>(schema: z.ZodType<T>, raw: unknown): T {
   const result = schema.safeParse(raw);
-  if (!result.success) throw new HttpError(502, 'Research returned an unusable answer. Please retry.');
+  if (!result.success) throw new HttpError(502, 'Research returned an unusable answer. Please retry.', 'ai_invalid_schema');
   return result.data;
 }
 const claimSchema = z.object({ text: z.string().max(5000), citations: z.array(z.object({ url: z.string().max(4096), quote: z.string().min(1).max(2000) })).max(20) });
@@ -36,6 +37,7 @@ export function discoveryHandler(deps: {
   structured: (input: string, schema: unknown, signal?: AbortSignal) => Promise<unknown>;
 }) {
   return async function POST(request: Request) {
+    let release: (() => Promise<void>) | undefined;
     try {
       sameOrigin(request);
       const id = await deps.owner();
@@ -51,11 +53,13 @@ export function discoveryHandler(deps: {
         }
         return json({ summary: 'This is an illustrative product. No community review claims have been generated.', positives: [], concerns: [], sources: [], coverage: 'Not researched · demo', sentiment: 'Unknown', checkedAt: new Date().toISOString(), mode: 'demo' });
       }
+      const signal = AbortSignal.any([request.signal, AbortSignal.timeout(90000)]);
+      release = await acquireResearch(db, id);
       const day = new Date().toISOString().slice(0, 10);
       const cap = await db.prepare('INSERT INTO request_limits(owner,day,count) VALUES(?,?,1) ON CONFLICT(owner) DO UPDATE SET day=excluded.day,count=CASE WHEN request_limits.day=excluded.day THEN request_limits.count+1 ELSE 1 END WHERE request_limits.day<>excluded.day OR request_limits.count<40').bind(id, day).run();
-      if (!cap.meta.changes) throw new HttpError(429, 'You’ve reached today’s 40 research requests. Please come back tomorrow.');
+      if (!cap.meta.changes) throw new HttpError(429, 'You’ve reached today’s 40 research requests. Please come back tomorrow.', 'daily_limit', Math.ceil((Date.parse(day) + 86400000 - Date.now()) / 1000));
       // One deadline covers research and extraction together, rather than 90 seconds for each call.
-      const signal = AbortSignal.any([request.signal, AbortSignal.timeout(90000)]);
+      if (signal.aborted) throw new HttpError(504, 'Research took too long. Please retry.', 'research_timeout');
       const context = JSON.stringify({ budgetSGD: body.budget, intention: body.intention, interests: body.interests,
         excluded: body.exclusions, direction: body.direction, reactions: body.reactions, history });
       if (body.action === 'scenarios') {
@@ -88,5 +92,6 @@ export function discoveryHandler(deps: {
         coverage: sources.length ? `${sources.length} discussion sources · anecdotal search excerpts` : 'Insufficient evidence',
         sentiment: sources.length ? 'Limited anecdotal evidence' : 'Unknown', checkedAt: new Date().toISOString(), mode: 'live' });
     } catch (error) { return failure(error); }
+    finally { await release?.(); }
   };
 }
