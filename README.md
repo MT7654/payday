@@ -48,7 +48,7 @@ Do not replay that migration on a database where it has already been applied.
 npm run dev -- --port 3003 --hostname 127.0.0.1
 ```
 
-Visit http://127.0.0.1:3003. Local loopback preview provides simulated ChatGPT sign-in; hosted Sites uses real ChatGPT identity. The public catalogue does not require sign-in. Personal plans and live AI requests do.
+Visit http://127.0.0.1:3003. Local loopback preview provides simulated ChatGPT sign-in; hosted Sites uses real ChatGPT identity. The public catalogue does not require sign-in. Plans can be saved in browser storage without sign-in. Live AI guidance and research also work anonymously.
 
 ## Checks
 
@@ -106,16 +106,39 @@ Mobbin screenshots are not bundled in this repository. Product concept images we
 
 The release was checked with TypeScript, 15 domain tests, local browser journeys, and live OpenAI idea/product/evidence/recheck requests. Live stock research can be inconsistent: an initial listing was later found sold out, so the shortlist now receives a separate availability check and purchase handoff requires another recheck. Search-based checks are not a merchant inventory guarantee.
 
-Guest mode uses authored sample matching, not live AI. Live discovery requires sign-in. The approximately two-minute journey is a design target, not a measured user-study result. No controlled conversion or satisfaction study has been run. Prices with unknown mandatory costs are visibly marked; merchant checkout is the final source of truth.
+The main discovery journey uses live AI without sign-in. Legacy sample mode remains clearly labelled. The approximately two-minute journey is a design target, not a measured user-study result. No controlled conversion or satisfaction study has been run. Prices with unknown mandatory costs are visibly marked; merchant checkout is the final source of truth.
 
 No new database migration is required: the versioned journey journal is stored inside the existing per-user JSON state record. Existing plans and saved records are preserved. The activity view is personal event counts, not a cross-user analytics dashboard or an implemented A/B experiment.
 
-## Preference-construction demo
+## Adaptive shopping guide
 
-The homepage now provides one guided flow: budget → three benefit-led moments → reaction → explicit trade-off → realistic use occasion → constructed reward brief → recommendations → saved reward.
+The homepage now uses a live AI conversation, not the previous fixed quiz. Buyers share context, react to generated possibilities, correct an editable brief, select a direction and name a real use occasion before merchant research. Mixed reactions preserve benefits while changing the solution. Product objections can be returned to the same guide without starting over.
 
-Suggested two-minute demo: S$80 → Make something, just for yourself → Less effort, please → Keep it simple and ready to use → This Saturday afternoon → Build my reward brief → Find options for this moment → Watercolour pocket studio → Save for payday. This shows a vague reward intention becoming an actionable product preference.
+Demo: S$80, tired of screens → ask for a creative reward → no classes, travel or lasting clutter → an edible activity at home this Saturday in under 30 minutes → select a direction → research sourced listings → inspect tradeoffs and independent evidence → recheck listing → merchant handoff or save. Results are live and can be empty when constraints cannot be verified. No purchase or guaranteed satisfaction is claimed.
 
-Demo mode uses authored concepts and illustrative prices, without fabricated merchant links or community endorsement. Signed-in users can select live AI research at the brief stage. Practical free-text notes are passed to live AI; deterministic sample recommendations filter budget, direction, and reward format rather than interpreting arbitrary notes. Very small budgets may return no matches. The existing reward shelf supports self-reported purchase and later satisfaction feedback.
+Anonymous requests share atomic D1 limits: 40 requests per daily keyed IP digest, 8 per minute, 250 globally per UTC day. Raw IPs are not stored. Requests can involve multiple model/search calls. Shared networks share a limit, and these controls are a prototype rather than comprehensive bot protection. API keys remain server-side. Account storage stays authenticated; guests save in their browser. Conversation lives in session storage and preferences are sent to OpenAI.
 
-Back preserves choices; changing a direction resets dependent preferences. Start over resets the guided session. The session resumes in the same browser tab. This research-informed interaction has not been validated with users.
+Validation: type checking, unit checks, live mixed-objection conversation and browser flow. No controlled user study has been run.
+
+## Persistent payday assistant (October 2026)
+
+The homepage now offers a prepared-discovery entry: set a payday and treat budget, reuse editable preferences, then ask the live guide to prepare two directions. Photo upload is not required. The guide receives bounded context from explicit preferences, previously confirmed briefs, non-demo reward decisions and feedback, and wishes labelled as unpurchased. A one-tap check-in for eligible self-reported purchases updates the existing journal. Future booked experiences are not prompted early. Context is editable, exportable and removable; account-wide data deletion also clears local assistant state.
+
+Assistant memory is browser-local (`payday-assistant-memory-v1`), even for signed-in visitors. It is not synced to D1. The existing reward journal retains its account/guest behavior. Choosing a direction remembers its confirmed brief. Context is sent to the server-side OpenAI guide only when discovery is requested, with length limits and existing request caps. No background inbox scans, push reminders, auto-bookings or automatic purchases are claimed. Existing calendar export and open-tab reminders remain available through payday plans.
+
+### Connection limitation
+
+Live Gmail and calendar connections are **not implemented or enabled**. The Sites integration reference requires `sites_list_plugin_eligibility` before selecting or declaring a connector; that tool is absent from the available toolset. `/api/connections` reports unavailable. No guessed connector IDs, credentials, owner mailbox snapshots or fabricated connection-success states are used. To enable live Gmail, obtain eligibility, declare an allowed read-only connector, implement bounded receipt reads and extraction, and test hosted visitor consent/refresh/disconnect and per-user isolation before enabling the UI. Direct Google OAuth would instead require an approved application, secrets, consent/verification and a compliant user-data design; this release does not bypass the Sites eligibility gate.
+
+### Reproducible sample journey
+
+Choose **Try a sample account** → confirm whether the paints are owned, a gift or returned → select a prepared possibility → save the sample plan → choose an outcome → view the next payday. “Never got around to it” changes the prepared direction to a museum outing; an ownership correction changes the first direction. Sample planning is deterministic, labelled fictional throughout, and isolated in tab session storage. Reload resumes its last step. Sample costs are illustrative and no purchase or booking is made. An explicitly opted-in idea can enter live discovery without copying the fictional receipts into personal memory.
+
+### Mobbin review
+
+- [Monarch connection onboarding](https://mobbin.com/screens/e1adf1d4-aef6-415d-8659-f0994b9f1153): one purpose per step and a clear skip path.
+- [Monarch connection status](https://mobbin.com/screens/0cd87fbc-b688-4c88-9672-af0b2e2e2617): explicit status rather than implied connection success.
+- [Shop feedback](https://mobbin.com/screens/12d1def8-9dbf-4182-88ac-bfc0896fd8c1): lightweight reactions with visible effect.
+- [Literal preference feedback](https://mobbin.com/screens/4effff01-e806-4f1b-94ee-f5064f558ba9): a small, bounded set of choices.
+
+Applied: single primary action per step, two possibilities, progress indication, 45px minimum primary targets, editable context, truthful unavailable states, visible sample status, keyboard focus and mobile scroll reset. Reference screenshots are not shipped. Browser QA covered the mobile-width sample journey through a second payday and a live response using saved preferences. These are functional checks, not a user study or proof of better conversion.

@@ -24,3 +24,5 @@ export function demoProducts(budget:number,direction:string):Product[]{const lis
 ]:[
 ['Comfortable wireless headphones','Everyday upgrade',89,'A little more calm on the commute, and music that moves with you.','Fit matters; test comfort before a long listening session.','headphones'],['A compact coffee ritual kit','Everyday upgrade',55,'Turn a hurried morning into a moment you look forward to.','You’ll need beans and a few extra minutes each morning.','coffee'],['An everyday carry backpack','Everyday upgrade',79,'Make the daily essentials easier to carry, without the bulk.','Check laptop dimensions and shoulder comfort.','bag']
 ];return list.filter(x=>Number(x[2])<=budget).map(x=>({id:`demo-${x[5]}`,name:String(x[0]),category:String(x[1]),price:Number(x[2]),merchant:'Illustrative example',url:'',reason:String(x[3]),tradeoff:String(x[4]),checkedAt:new Date().toISOString(),sources:[],mode:'demo',totalCostKnown:false,art:String(x[5])}));}
+
+export function productPageURL(url:string){if(!safeURL(url))return false;const path=new URL(url).pathname;return !/^\/(collections?|categor(?:y|ies)|product-category|search)(\/|$)|^\/(shop|products)?\/?$/i.test(path);}
