@@ -97,3 +97,13 @@ The release was checked with TypeScript, 15 domain tests, local browser journeys
 Guest mode uses authored sample matching, not live AI. Live discovery requires sign-in. The approximately two-minute journey is a design target, not a measured user-study result. No controlled conversion or satisfaction study has been run. Prices with unknown mandatory costs are visibly marked; merchant checkout is the final source of truth.
 
 No new database migration is required: the versioned journey journal is stored inside the existing per-user JSON state record. Existing plans and saved records are preserved. The activity view is personal event counts, not a cross-user analytics dashboard or an implemented A/B experiment.
+
+## Preference-construction demo
+
+The homepage now provides one guided flow: budget → three benefit-led moments → reaction → explicit trade-off → realistic use occasion → constructed reward brief → recommendations → saved reward.
+
+Suggested two-minute demo: S$80 → Make something, just for yourself → Less effort, please → Keep it simple and ready to use → This Saturday afternoon → Build my reward brief → Find options for this moment → Watercolour pocket studio → Save for payday. This shows a vague reward intention becoming an actionable product preference.
+
+Demo mode uses authored concepts and illustrative prices, without fabricated merchant links or community endorsement. Signed-in users can select live AI research at the brief stage. Practical free-text notes are passed to live AI; deterministic sample recommendations filter budget, direction, and reward format rather than interpreting arbitrary notes. Very small budgets may return no matches. The existing reward shelf supports self-reported purchase and later satisfaction feedback.
+
+Back preserves choices; changing a direction resets dependent preferences. Start over resets the guided session. The session resumes in the same browser tab. This research-informed interaction has not been validated with users.
