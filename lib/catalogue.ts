@@ -1,4 +1,5 @@
 import type { Product } from './rewards';
+import { preferences, matchesExclusion } from './preferences.ts';
 export type Sample = Product & { mood:string; tags:string[]; description:string; color:string };
 // Authored concepts: illustrative SGD prices, no merchant claims or endorsements.
 const rows:[string,string,number,string,string,string,string][]=[
@@ -56,9 +57,9 @@ const rows:[string,string,number,string,string,string,string][]=[
 const palettes=['#eee9dc','#e4ede4','#f5e2d7','#e8e3ef','#e1eaf0'];
 export const catalogue:Sample[]=rows.map((r,i)=>({id:`sample-${String(i+1).padStart(2,'0')}`,name:r[0],category:r[1],price:r[2],art:r[3],mood:r[4],description:r[5],reason:r[5],tradeoff:r[6],tags:[r[1],r[4],r[3]],color:palettes[i%palettes.length],merchant:'Curated idea',url:'',checkedAt:'',sources:[],mode:'demo',totalCostKnown:false}));
 export function sampleMatches(budget:number,direction:string,excluded='',reactions:string[]=[]):Sample[]{
- const terms=excluded.toLowerCase().split(/[,;\n]/).map(t=>t.trim()).filter(Boolean);
- const words=`${direction} ${reactions.join(' ')}`.toLowerCase().split(/\W+/).filter(w=>w.length>3);
- return catalogue.filter(p=>p.price<=budget&&!terms.some(t=>`${p.name} ${p.category} ${p.tags.join(' ')}`.toLowerCase().includes(t))).map(p=>({p,score:words.reduce((n,w)=>n+Number(`${p.name} ${p.category} ${p.mood} ${p.description}`.toLowerCase().includes(w)),0)})).sort((a,b)=>b.score-a.score).slice(0,3).map(x=>x.p);
+ const parsed=preferences(excluded,[direction,...reactions]);
+ const words=parsed.positives.join(' ').toLowerCase().split(/\W+/).filter(w=>w.length>3);
+ return catalogue.filter(p=>p.price<=budget&&!matchesExclusion(`${p.name} ${p.category} ${p.tags.join(' ')}`,parsed.excluded)).map(p=>({p,score:words.reduce((n,w)=>n+Number(`${p.name} ${p.category} ${p.mood} ${p.description}`.toLowerCase().includes(w)),0)})).sort((a,b)=>b.score-a.score).slice(0,3).map(x=>x.p);
 }
 
 export function shortlist(mood:string,budget:number){const preferred=['sample-01','sample-40','sample-06'];const candidates=catalogue.filter(p=>p.price<=budget&&(mood==='Anything'||p.mood===mood));return candidates.sort((a,b)=>{const rank=(p:Sample)=>preferred.includes(p.id)?preferred.indexOf(p.id):-1;return (rank(a)<0?99:rank(a))-(rank(b)<0?99:rank(b));}).slice(0,3);}
