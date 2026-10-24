@@ -60,3 +60,5 @@ export function sampleMatches(budget:number,direction:string,excluded='',reactio
  const words=`${direction} ${reactions.join(' ')}`.toLowerCase().split(/\W+/).filter(w=>w.length>3);
  return catalogue.filter(p=>p.price<=budget&&!terms.some(t=>`${p.name} ${p.category} ${p.tags.join(' ')}`.toLowerCase().includes(t))).map(p=>({p,score:words.reduce((n,w)=>n+Number(`${p.name} ${p.category} ${p.mood} ${p.description}`.toLowerCase().includes(w)),0)})).sort((a,b)=>b.score-a.score).slice(0,3).map(x=>x.p);
 }
+
+export function shortlist(mood:string,budget:number){const preferred=['sample-01','sample-40','sample-06'];const candidates=catalogue.filter(p=>p.price<=budget&&(mood==='Anything'||p.mood===mood));return candidates.sort((a,b)=>{const rank=(p:Sample)=>preferred.includes(p.id)?preferred.indexOf(p.id):-1;return (rank(a)<0?99:rank(a))-(rank(b)<0?99:rank(b));}).slice(0,3);}

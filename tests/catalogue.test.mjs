@@ -12,3 +12,10 @@ test('sample shortlist respects budget and explicit exclusions',()=>{
  assert.deepEqual(sampleMatches(1,'coffee'),[]);
  assert.ok(sampleMatches(150,'pottery')[0].name.toLowerCase().includes('pottery'));
 });
+
+import { shortlist } from '../lib/catalogue.ts';
+test('guided discovery terminates at three unique affordable ideas',()=>{
+ for(const mood of ['Anything',...new Set(catalogue.map(p=>p.mood))])for(const budget of [20,30,50,100,150]){
+ const picks=shortlist(mood,budget);assert.ok(picks.length<=3);assert.equal(new Set(picks.map(p=>p.id)).size,picks.length);assert.ok(picks.every(p=>p.price<=budget&&(mood==='Anything'||p.mood===mood)));
+ }
+});
