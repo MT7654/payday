@@ -3,6 +3,7 @@ import "./globals.css";
 import "./reward-journey.css";
 import "./preference-flow.css";
 import "./shop-guide.css";
+import "./payday-assistant.css";
 
 export const metadata: Metadata = {
   title: "Payday — A little something for you",
