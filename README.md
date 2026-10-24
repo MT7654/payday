@@ -1,3 +1,5 @@
+<img src="public/brand/payday-mark.png" width="96" alt="Payday discovery spark logo" />
+
 # Payday
 
 A public reward-discovery app with a finite journey: set a treat budget, describe a life situation, choose a reward direction, and compare up to three specific options.

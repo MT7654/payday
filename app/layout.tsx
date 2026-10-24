@@ -10,8 +10,8 @@ export const metadata: Metadata = {
   title: "Payday — A little something for you",
   description: "Celebrate your milestones. Discover a thoughtful reward, with AI and real community experiences.",
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: "/brand/payday-mark.png",
+    shortcut: "/brand/payday-mark.png",
   },
 };
 
