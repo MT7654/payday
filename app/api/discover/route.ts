@@ -1,3 +1,4 @@
+import { sampleMatches } from '../../../lib/catalogue';
 import { owner,database,json,failure,sameOrigin,limitedBody } from '../../../lib/server';
 import { response,structured,object,array,string } from '../../../lib/ai';
 import { constrainProducts,scenarios,demoProducts,safeURL,type Product } from '../../../lib/rewards';
@@ -7,7 +8,7 @@ export async function POST(r:Request){try{
  sameOrigin(r);const id=await owner();const b=requestSchema.parse(await limitedBody(r));
  if(b.mode==='demo'){
   if(b.action==='scenarios')return json({question:'What would make this reward feel like you?',scenarios});
-  if(b.action==='products')return json({products:demoProducts(b.budget,b.direction).filter(p=>!b.exclusions.split(',').some(t=>t.trim()&&`${p.name} ${p.category}`.toLowerCase().includes(t.trim().toLowerCase()))),note:'Illustrative concepts and prices, not verified products or offers.'});
+  if(b.action==='products')return json({products:sampleMatches(b.budget,b.direction,b.exclusions,b.reactions),note:'Illustrative concepts and prices, not verified products or offers.'});
   return json({summary:'This is an illustrative product. No community review claims have been generated. In live mode, Payday searches for the exact product and links the discussions it can find.',positives:[],concerns:[],sources:[],coverage:'Not researched · demo',sentiment:'Unknown',checkedAt:new Date().toISOString(),mode:'demo'});
  }
  const day=new Date().toISOString().slice(0,10);const cap=await database().prepare('INSERT INTO request_limits(owner,day,count) VALUES(?,?,1) ON CONFLICT(owner) DO UPDATE SET day=excluded.day,count=CASE WHEN request_limits.day=excluded.day THEN request_limits.count+1 ELSE 1 END WHERE request_limits.day<>excluded.day OR request_limits.count<40').bind(id,day).run();if(!cap.meta.changes)return json({error:'You’ve reached today’s 40 research requests. Your rewards are saved; come back tomorrow.'},429);
