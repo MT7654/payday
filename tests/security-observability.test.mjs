@@ -77,7 +77,7 @@ test('AI logs report usage and latency but never prompt, key, model output or pr
   const logs = [];
   const client = aiClient({ OPENAI_API_KEY: 'secret-key' }, async (url, init) => {
     assert.equal(url, 'https://api.openai.com/v1/responses');
-    assert.equal(init.redirect, 'error');
+    assert.equal(init.redirect, 'manual');
     assert.equal(JSON.parse(init.body).store, false);
     return Response.json({ output: [{ type: 'message', content: [{ type: 'output_text', text: 'secret-answer', annotations: [] }] }], usage: { input_tokens: 123, output_tokens: 45 } });
   });

@@ -22,7 +22,9 @@ export function aiClient(config: Record<string, string>, transport: typeof fetch
       try {
         res = await transport('https://api.openai.com/v1/responses', {
           method: 'POST', headers: { Authorization: `Bearer ${config.OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
-          body: JSON.stringify(body), signal: signal ?? AbortSignal.timeout(90000), redirect: 'error',
+          // Workers does not implement redirect:'error'. Manual returns redirects
+          // for the !res.ok branch below, without forwarding the API credential.
+          body: JSON.stringify(body), signal: signal ?? AbortSignal.timeout(90000), redirect: 'manual',
         });
       } catch { throw new HttpError(504, 'Research took too long or the connection failed. Please try again.', 'ai_transport'); }
       status = res.status;
