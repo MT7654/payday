@@ -55,7 +55,7 @@ export function aiClient(config: Record<string, string>, transport: typeof fetch
     let parsed: unknown;
     try { parsed = JSON.parse(result.text); }
     catch { throw new HttpError(502, 'The answer was not in a usable format. Please retry.', 'ai_invalid_json'); }
-    try { return z.fromJSONSchema(schema as Parameters<typeof z.fromJSONSchema>[0]).parse(parsed) as Record<string, any>; }
+    try { return z.fromJSONSchema(schema as Parameters<typeof z.fromJSONSchema>[0]).parse(parsed); }
     catch { throw new HttpError(502, 'The answer did not match the expected format. Please retry.', 'ai_invalid_schema'); }
   }
   return { response, structured };

@@ -59,27 +59,34 @@ export async function evidencedProduct(raw: unknown, research: Research): Promis
   // Only call a total known when all mandatory components are represented and reconcile.
   if (shipping === null || tax === null || total === null || cents(total) !== cents(candidate.pricing.item) + cents(shipping) + cents(tax)) total = null;
   const pricing = { ...candidate.pricing, shipping, tax, total, evidence: facts, basis: 'search-summary' as const };
-  const { pricing: _pricing, ...fields } = candidate;
-  return { ...fields, id: await stableProductId(candidate), price: pricing.item, pricing, totalCostKnown: total !== null,
+  return { ...candidate, id: await stableProductId(candidate), price: pricing.item, pricing, totalCostKnown: total !== null,
     checkedAt: new Date().toISOString(), sources: research.sources.filter(source => source.url === candidate.url), mode: 'live' };
 }
 
-export function extractResearch(data: { output?: any[] }): Research {
+export function extractResearch(data: { output?: unknown[] }): Research {
   let text = '';
   const sources: Source[] = [], passages: CitationPassage[] = [];
-  for (const item of data.output ?? []) {
-    for (const content of item.content ?? []) {
+  const record = (value: unknown): Record<string, unknown> => value !== null && typeof value === 'object' ? value as Record<string, unknown> : {};
+  for (const rawItem of data.output ?? []) {
+    const item = record(rawItem);
+    for (const rawContent of Array.isArray(item.content) ? item.content : []) {
+      const content = record(rawContent);
       if (content.type !== 'output_text' || typeof content.text !== 'string') continue;
       text += content.text + '\n';
-      for (const citation of content.annotations ?? []) {
-        if (citation.type !== 'url_citation' || !safeURL(citation.url)) continue;
-        sources.push({ url: citation.url, title: citation.title || new URL(citation.url).hostname });
-        if (!Number.isInteger(citation.start_index) || !Number.isInteger(citation.end_index) || citation.start_index < 0 || citation.end_index > content.text.length) continue;
+      for (const rawCitation of Array.isArray(content.annotations) ? content.annotations : []) {
+        const citation = record(rawCitation);
+        if (citation.type !== 'url_citation' || typeof citation.url !== 'string' || !safeURL(citation.url)) continue;
+        sources.push({ url: citation.url, title: typeof citation.title === 'string' && citation.title || new URL(citation.url).hostname });
+        if (typeof citation.start_index !== 'number' || typeof citation.end_index !== 'number' || !Number.isInteger(citation.start_index) || !Number.isInteger(citation.end_index) || citation.start_index < 0 || citation.end_index > content.text.length) continue;
         const start = content.text.lastIndexOf('\n', Math.max(0, citation.start_index - 1)) + 1;
         passages.push({ url: citation.url, text: content.text.slice(start, citation.end_index) });
       }
     }
-    for (const source of item.action?.sources ?? []) if (safeURL(source.url)) sources.push({ url: source.url, title: source.title || new URL(source.url).hostname });
+    const action = record(item.action);
+    for (const rawSource of Array.isArray(action.sources) ? action.sources : []) {
+      const source = record(rawSource);
+      if (typeof source.url === 'string' && safeURL(source.url)) sources.push({ url: source.url, title: typeof source.title === 'string' && source.title || new URL(source.url).hostname });
+    }
   }
   return { text, passages, sources: [...new Map(sources.map(source => [source.url, source])).values()] };
 }

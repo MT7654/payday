@@ -3,3 +3,9 @@ export const guideSchema=z.object({budget:z.number().min(1).max(100000),location
 export type GuideBrief={goal:string;keep:string[];avoid:string[];priority:string;occasion:string;format:'any'|'own'|'do'|'give'};
 export type GuideReply={message:string;question:string;answers:string[];brief:GuideBrief;ideas:import('./journey').Idea[]};
 export function transcript(history:{role:string;text:string}[]){return history.map(h=>`${h.role==='user'?'BUYER':'GUIDE'}: ${h.text}`).join('\n');}
+
+export const guideReplySchema=z.object({
+ message:z.string().max(420),question:z.string().max(180),answers:z.array(z.string()),
+ brief:z.object({goal:z.string(),keep:z.array(z.string()),avoid:z.array(z.string()),priority:z.string(),occasion:z.string(),format:z.enum(['any','own','do','give'])}),
+ ideas:z.array(z.object({title:z.string(),description:z.string(),reason:z.string(),practical:z.string(),minCost:z.number(),maxCost:z.number(),art:z.string(),keywords:z.array(z.string())})),
+});

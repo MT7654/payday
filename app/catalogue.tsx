@@ -1,4 +1,5 @@
 'use client';
+import {browserHydration} from '../lib/browser-hydration';
 import { useEffect,useRef,useState } from 'react';
 import { ArrowLeft,ArrowRight,Heart,X,Check,Sparkles,Gift } from 'lucide-react';
 import { shortlist,type Sample } from '../lib/catalogue';
@@ -12,7 +13,7 @@ function Picture({item}:{item:Sample}){return <RewardArt kind={item.art} name={i
 export default function Catalogue({onPlan}:{onPlan:(idea?:Sample)=>void}){
  const [step,setStep]=useState(0),[mood,setMood]=useState(''),[budget,setBudget]=useState(100),[saved,setSaved]=useState<string[]>([]),[selected,setSelected]=useState<Sample|null>(null),[toast,setToast]=useState('');
  const dialog=useRef<HTMLElement>(null),heading=useRef<HTMLHeadingElement>(null);
- useEffect(()=>{try{const s=JSON.parse(localStorage.getItem('payday-sample-saves')||'[]');if(Array.isArray(s))setSaved(s.filter(x=>typeof x==='string'));}catch{}},[]);
+ useEffect(()=>browserHydration(()=>{try{const s=JSON.parse(localStorage.getItem('payday-sample-saves')||'[]');if(Array.isArray(s))setSaved(s.filter(x=>typeof x==='string'));}catch{}}),[]);
  useEffect(()=>{if(!toast)return;const t=setTimeout(()=>setToast(''),2600);return()=>clearTimeout(t);},[toast]);
  useEffect(()=>{heading.current?.focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});},[step]);
  useEffect(()=>{if(!selected)return;const prior=document.activeElement as HTMLElement;const get=()=>Array.from(dialog.current?.querySelectorAll<HTMLElement>('button,a[href]')||[]);get()[0]?.focus();const key=(e:KeyboardEvent)=>{if(e.key==='Escape')setSelected(null);if(e.key==='Tab'){const a=get();if(e.shiftKey&&document.activeElement===a[0]){e.preventDefault();a.at(-1)?.focus();}else if(!e.shiftKey&&document.activeElement===a.at(-1)){e.preventDefault();a[0]?.focus();}}};document.addEventListener('keydown',key);const before=document.body.style.overflow;document.body.style.overflow='hidden';return()=>{document.body.style.overflow=before;document.removeEventListener('keydown',key);prior?.focus();};},[selected]);
