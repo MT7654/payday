@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./reward-journey.css";
 import "./preference-flow.css";
+import "./shop-guide.css";
 
 export const metadata: Metadata = {
   title: "Payday — A little something for you",

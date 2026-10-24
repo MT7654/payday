@@ -48,7 +48,7 @@ Do not replay that migration on a database where it has already been applied.
 npm run dev -- --port 3003 --hostname 127.0.0.1
 ```
 
-Visit http://127.0.0.1:3003. Local loopback preview provides simulated ChatGPT sign-in; hosted Sites uses real ChatGPT identity. The public catalogue does not require sign-in. Personal plans and live AI requests do.
+Visit http://127.0.0.1:3003. Local loopback preview provides simulated ChatGPT sign-in; hosted Sites uses real ChatGPT identity. The public catalogue does not require sign-in. Plans can be saved in browser storage without sign-in. Live AI guidance and research also work anonymously.
 
 ## Checks
 
@@ -94,16 +94,16 @@ Mobbin screenshots are not bundled in this repository. Product concept images we
 
 The release was checked with TypeScript, 15 domain tests, local browser journeys, and live OpenAI idea/product/evidence/recheck requests. Live stock research can be inconsistent: an initial listing was later found sold out, so the shortlist now receives a separate availability check and purchase handoff requires another recheck. Search-based checks are not a merchant inventory guarantee.
 
-Guest mode uses authored sample matching, not live AI. Live discovery requires sign-in. The approximately two-minute journey is a design target, not a measured user-study result. No controlled conversion or satisfaction study has been run. Prices with unknown mandatory costs are visibly marked; merchant checkout is the final source of truth.
+The main discovery journey uses live AI without sign-in. Legacy sample mode remains clearly labelled. The approximately two-minute journey is a design target, not a measured user-study result. No controlled conversion or satisfaction study has been run. Prices with unknown mandatory costs are visibly marked; merchant checkout is the final source of truth.
 
 No new database migration is required: the versioned journey journal is stored inside the existing per-user JSON state record. Existing plans and saved records are preserved. The activity view is personal event counts, not a cross-user analytics dashboard or an implemented A/B experiment.
 
-## Preference-construction demo
+## Adaptive shopping guide
 
-The homepage now provides one guided flow: budget → three benefit-led moments → reaction → explicit trade-off → realistic use occasion → constructed reward brief → recommendations → saved reward.
+The homepage now uses a live AI conversation, not the previous fixed quiz. Buyers share context, react to generated possibilities, correct an editable brief, select a direction and name a real use occasion before merchant research. Mixed reactions preserve benefits while changing the solution. Product objections can be returned to the same guide without starting over.
 
-Suggested two-minute demo: S$80 → Make something, just for yourself → Less effort, please → Keep it simple and ready to use → This Saturday afternoon → Build my reward brief → Find options for this moment → Watercolour pocket studio → Save for payday. This shows a vague reward intention becoming an actionable product preference.
+Demo: S$80, tired of screens → ask for a creative reward → no classes, travel or lasting clutter → an edible activity at home this Saturday in under 30 minutes → select a direction → research sourced listings → inspect tradeoffs and independent evidence → recheck listing → merchant handoff or save. Results are live and can be empty when constraints cannot be verified. No purchase or guaranteed satisfaction is claimed.
 
-Demo mode uses authored concepts and illustrative prices, without fabricated merchant links or community endorsement. Signed-in users can select live AI research at the brief stage. Practical free-text notes are passed to live AI; deterministic sample recommendations filter budget, direction, and reward format rather than interpreting arbitrary notes. Very small budgets may return no matches. The existing reward shelf supports self-reported purchase and later satisfaction feedback.
+Anonymous requests share atomic D1 limits: 40 requests per daily keyed IP digest, 8 per minute, 250 globally per UTC day. Raw IPs are not stored. Requests can involve multiple model/search calls. Shared networks share a limit, and these controls are a prototype rather than comprehensive bot protection. API keys remain server-side. Account storage stays authenticated; guests save in their browser. Conversation lives in session storage and preferences are sent to OpenAI.
 
-Back preserves choices; changing a direction resets dependent preferences. Start over resets the guided session. The session resumes in the same browser tab. This research-informed interaction has not been validated with users.
+Validation: type checking, unit checks, live mixed-objection conversation and browser flow. No controlled user study has been run.
