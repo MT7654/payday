@@ -1,0 +1,12 @@
+Image generation: built-in image_gen tool, product-mockup use case.
+Assets: app/public/products/coffee.png, headphones.png, pottery.png.
+
+Final prompt template:
+Create a single photorealistic editorial product photograph for a shopping app. [SUBJECT]. Warm ivory studio backdrop, natural side daylight, delicate shadows, tactile materials, quiet sophisticated lifestyle brand aesthetic. Square composition, whole product visible with generous breathing room. No text, no logos, no watermarks. This is an illustrative product concept, not a specific brand.
+
+Subjects:
+coffee: A compact pour-over coffee set: one cream ceramic ridged dripper on a clear glass carafe, small matching cup and a few beans
+headphones: A pair of premium over-ear wireless headphones in warm ivory, folded slightly on an elegant low plinth
+pottery: A handmade speckled ceramic breakfast bowl in warm cream with a soft terracotta foot, empty
+
+The assets are mapped only to the matching sample concepts; they do not represent verified merchandise. All three were visually inspected before integration.

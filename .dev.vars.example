@@ -1,0 +1,4 @@
+# Local server configuration. Copy this file to .dev.vars.
+# Leave the key blank for sample discovery; set it only for live AI research.
+OPENAI_API_KEY=
+OPENAI_MODEL=gpt-4.1
