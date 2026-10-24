@@ -32,7 +32,20 @@ export function canonicalProductURL(raw: string) {
   } catch { return ''; }
 }
 export function preferenceHistory(state: State) {
-  return state.saved.slice(0, 100).map(({ name, category, decision, feedback, url }) => ({ name, category, decision, feedback: feedback ?? '', url }));
+  const items = [...(state.journey?.finds ?? []), ...state.saved];
+  // First match wins: current journal decisions supersede the legacy saved list.
+  const seen = new Set<string>();
+  return items.filter(item => {
+    const key = canonicalProductURL(item.url) || normalize(item.name);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  }).slice(0, 100).map(item => ({
+    name: item.name, category: item.category, decision: item.decision,
+    feedback: item.feedback ?? '', url: item.url,
+    ...('satisfaction' in item ? { satisfaction: item.satisfaction } : {}),
+    ...('used' in item ? { used: item.used } : {}),
+  }));
 }
 export function rejectedByHistory(product: Pick<Product, 'name' | 'url'>, saved: Pick<Saved, 'name' | 'url' | 'decision' | 'feedback'>[]) {
   return saved.some(item => {

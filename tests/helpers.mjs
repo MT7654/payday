@@ -21,9 +21,9 @@ export const plan = { id: 'p', title: 'A reward', occasion: 'Payday', intention:
 export const state = () => ({ ...structuredClone(emptyState), plans: [structuredClone(plan)] });
 export const request = (body, method = 'PUT') => new Request('https://payday.test/api/state', { method, headers: { origin: 'https://payday.test', 'content-type': 'application/json' }, ...(body === undefined ? {} : { body: JSON.stringify(body) }) });
 export const research = {
-  text: 'Acme Headphones. Acme Headphones item S$40. Shipping S$5. Tax included S$0. Total S$45.',
+  text: 'Acme Headphones. Acme Headphones item S$40. Shipping S$5. Tax included S$0. Total S$45. Acme Headphones in stock.',
   sources: [{ url: 'https://shop.test/acme', title: 'Acme' }],
-  passages: [{ url: 'https://shop.test/acme', text: 'Acme Headphones. Acme Headphones item S$40. Shipping S$5. Tax included S$0. Total S$45.' }],
+  passages: [{ url: 'https://shop.test/acme', text: 'Acme Headphones. Acme Headphones item S$40. Shipping S$5. Tax included S$0. Total S$45. Acme Headphones in stock.' }],
 };
 export const candidate = () => ({ name: 'Acme Headphones', category: 'Audio', merchant: 'Shop', url: 'https://shop.test/acme', reason: 'Compact', tradeoff: 'Check fit', art: 'headphones', pricing: {
   currency: 'SGD', item: 40, shipping: 5, tax: 0, total: 45,
