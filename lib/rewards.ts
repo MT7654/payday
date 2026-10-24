@@ -1,6 +1,9 @@
+import { preferences, matchesExclusion } from './preferences.ts';
 export type Plan = { id:string; title:string; occasion:string; intention:string; budget:number; date:string; time:string; timezone:string; monthly:boolean; paused:boolean; interests:string; exclusions:string; notified:string[]; dismissed:string[]; snooze:string|null; targetFindId?:string };
 export type Source = { url:string; title:string; date?:string; relevance?:string };
-export type Product = { id:string; name:string; category:string; price:number; merchant:string; url:string; reason:string; tradeoff:string; checkedAt:string; sources:Source[]; mode:'live'|'demo'; totalCostKnown:boolean; art:string };
+export type PriceFact = { field:'item'|'shipping'|'tax'|'total'|'model'; url:string; quote:string };
+export type Pricing = { currency:'SGD'; item:number; shipping:number|null; tax:number|null; total:number|null; evidence:PriceFact[]; basis:'search-summary' };
+export type Product = { id:string; name:string; category:string; price:number; merchant:string; url:string; reason:string; tradeoff:string; checkedAt:string; sources:Source[]; mode:'live'|'demo'; totalCostKnown:boolean; art:string; pricing?:Pricing };
 export type Evidence = { summary:string; positives:{text:string;urls:string[]}[]; concerns:{text:string;urls:string[]}[]; sources:Source[]; coverage:string; sentiment:string; checkedAt:string; mode:'live'|'demo'; bestFor?:string; mayDisappoint?:string; relevance?:string };
 export type Session = { id:string; planId:string; mode:'live'|'demo'; direction:string; reactions:string[]; products:Product[]; question:string; scenarios:{title:string;description:string;icon:string}[]; evidence:Record<string,Evidence>; stage:number; updatedAt:string };
 export type Saved = Product & { savedAt:string; decision:'saved'|'visited'|'bought'|'skipped'; feedback?:string };

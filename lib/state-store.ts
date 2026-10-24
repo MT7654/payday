@@ -13,7 +13,7 @@ export async function writeState(db: StateDatabase, owner: string, state: State,
     ON CONFLICT(owner) DO UPDATE SET body=excluded.body,revision=reward_states.revision+1,updated_at=excluded.updated_at
     WHERE reward_states.revision=? RETURNING revision
   `).bind(owner, JSON.stringify(state), new Date().toISOString(), revision, owner, revision).first<{ revision: number }>();
-  if (!row) throw new HttpError(409, 'Your rewards changed in another tab. Export unsaved changes before reloading.');
+  if (!row) throw new HttpError(409, 'Your rewards changed in another tab. Export unsaved changes before reloading.', 'revision_conflict');
   return row;
 }
 export async function clearState(db: StateDatabase, owner: string) {

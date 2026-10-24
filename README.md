@@ -42,10 +42,10 @@ npm run build
 node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1 execute DB --local --config dist/server/wrangler.json --persist-to .wrangler/state --file drizzle/0000_special_warhawk.sql
 ```
 
-Do not replay that migration on a database where it has already been applied.
+For a fresh database, then apply `drizzle/0001_lush_jazinda.sql` with the same command. For an existing database, apply only unapplied migrations. Do not replay migrations on a database where they have already been applied. See [operations](docs/operations.md) for this update’s rollout.
 
 ```sh
-npm run dev -- --port 3003 --hostname 127.0.0.1
+npm run dev -- --port 3003 --host 127.0.0.1
 ```
 
 Visit http://127.0.0.1:3003. Local loopback preview provides simulated ChatGPT sign-in; hosted Sites uses real ChatGPT identity. The public catalogue does not require sign-in. Plans can be saved in browser storage without sign-in. Live AI guidance and research also work anonymously.
@@ -78,7 +78,7 @@ Built with React, TypeScript and the Sites Vinext starter, deployed on Cloudflar
 
 The OpenAI key is a server-side secret. `.env`, `.dev.vars`, database state, dependencies and build archives are ignored. Hosted secrets are configured separately from local settings. Private records are keyed by the authenticated user ID, with optimistic revisions to detect conflicting saves. Deleting personal content retains an empty state row, user identifier, timestamp and increasing revision; this prevents an older tab from restoring deleted plans. No new database migration is required for this behavior.
 
-Browser alerts require the app to stay open; imported calendar reminders handle closed-app alerts. No email/SMS or background push service is included. Live research loads the signed-in user’s saved purchase, rejection and satisfaction history. Removing an item from Saved finds removes that item from future recommendation context. Research has a per-user daily request cap and depends on available public sources; community evidence is anecdotal, not a statistical confidence score.
+Browser alerts require the app to stay open; imported calendar reminders handle closed-app alerts. No email/SMS or background push service is included. Live research loads the signed-in user’s saved purchase, rejection and satisfaction history. Removing an item from Saved finds removes that item from future recommendation context. Public research and the guide share daily, burst and concurrency limits and depends on available public sources; community evidence is anecdotal, not a statistical confidence score.
 
 ## Design references
 
@@ -96,10 +96,10 @@ Mobbin screenshots are not bundled in this repository. Product concept images we
 - Saves retry temporary failures and reconcile lost responses before retrying writes. Revision conflicts pause saving; users can export unsaved changes before reloading. The interface only reports all changes saved after server acknowledgement.
 - Explicit exclusions and common negative phrases are filtered in both sample and live shortlists. This is a bounded phrase parser, not a guarantee that every possible natural-language constraint is understood. AI still interprets broader preferences.
 - Purchases, skipped items and regretted items are omitted from future shortlists. Retailer visits preserve purchase status and satisfaction feedback. Live product IDs remain stable across repeated research of the same merchant URL.
-- Live prices require an exact-model excerpt and an SGD item-price excerpt tied to the same cited merchant URL. Shipping, additional tax and totals remain unknown unless supported. Known mandatory costs are checked against the budget even when other fees are unknown.
+- Public live discovery checks source membership, product-page URLs, availability and fit with additional AI passes. These checks do not independently verify merchant inventory or every price excerpt. The older authenticated discovery helper also tests quote-level price evidence; it is not the public route.
 - Price evidence is derived from cited AI search summaries, not independently fetched or verified retailer pages. The interface exposes the supporting excerpts and this limitation. Confirm stock, model, shipping and final prices with the merchant.
-- Community claims require supporting cited passages from recognised Reddit, HardwareZone or Head-Fi thread URLs. Search pages and merchant pages are excluded. Additional forums should be added with URL-validation tests; absence of supported discussion is not evidence of poor quality.
-- The two AI stages share a single 90-second deadline. Tests use stubbed AI responses and an isolated SQLite database; they never call paid AI APIs or alter hosted data.
+- Public community research constrains claims to retrieved source URLs and asks the model to distinguish forum evidence. This remains AI interpretation; the quote-level/forum-allowlist utility tests do not establish that the public route independently verifies every claim.
+- All AI stages within one request share a single 90-second deadline. Tests use stubbed AI responses and an isolated SQLite database; they never call paid AI APIs or alter hosted data.
 
 `npm test` includes API ownership, quota, schema validation, deletion/save races, save retry/recovery, preference history and evidence-grounding regression cases, as well as the original catalogue and reminder tests. Use Node 24 for the built-in SQLite test adapter.
 ## Verification and limits
@@ -153,3 +153,7 @@ The current interface uses the shared tokens and component rules in app/design-s
 User-facing demo/hackathon language has been replaced with planning and discovery language. The prepared journey uses an explicitly illustrative profile, separate from personal memory; its forward-looking reactions express anticipated fit rather than claiming a past purchase or elapsed time. Curated costs remain planning figures, and unavailable Gmail remains accurately labelled.
 
 Reviewed the mobile home, plans, settings and recommendation cards visually against the Mobbin patterns. No broken-asset audit was run, as requested.
+
+## Security and observability
+
+See [SECURITY.md](SECURITY.md) for the authentication trust boundary and safeguards, and [operations](docs/operations.md) for deployment, privacy-safe diagnostics and incident response. This update adds a D1 research-lease migration, strict mutation-origin checks, request and AI timing/usage events, and repository security checks. Hosted logging and gateway protections must be verified during deployment.
