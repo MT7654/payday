@@ -30,12 +30,13 @@ export function summarizeInterests(items:DiscoveryInterest[]):DiscoverySummary{
   if(category){matched++;counts.set(category.label,(counts.get(category.label)||0)+1);}
  }
  const ranked=categories.map(c=>({label:c.label,count:counts.get(c.label)||0,theme:c.themes[0]})).filter(c=>c.count>0).sort((a,b)=>b.count-a.count);
- return {stage:ranked.length?'themes':'week',total,matched,categories:ranked};
+ return {stage:total?'themes':'week',total,matched,categories:ranked};
 }
 const emptyBrief=()=>({goal:'',keep:[],avoid:[],priority:'',occasion:'',format:'any' as const});
 export function guideOpening(context:string,items?:DiscoveryInterest[]):GuideReply {
  const discovery=summarizeInterests(items??legacyInterests(context));
- if(!discovery.categories.length)return {message:discovery.total?'Let’s start with your week.':'No shortlist needed. Let’s start with you.',question:'How has this week felt overall?',answers:['Draining','Restless','Pretty good'],brief:emptyBrief(),ideas:[],discovery};
+ if(!discovery.total)return {message:'No shortlist needed. Let’s start with you.',question:'How has this week felt overall?',answers:['Draining','Restless','Pretty good'],brief:emptyBrief(),ideas:[],discovery};
+ if(!discovery.categories.length)return {message:'Let’s explore what caught your eye.',question:'What appealed to you about the things you saved?',answers:['Their look and feel','What I could do with them','Something different'],brief:emptyBrief(),ideas:[],discovery};
  const top=discovery.categories.slice(0,2);
  const themes=top.map(c=>c.theme);
  if(top.length===1)themes.push(categories.find(c=>c.label===top[0].label)!.themes[1]);

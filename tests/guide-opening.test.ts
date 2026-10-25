@@ -12,8 +12,8 @@ test('a saved headphone opens with optional themes, not product intent',()=>{
  assert.doesNotMatch(JSON.stringify(result),/headphone|you saved|you browsed/i);
  assert.deepEqual(result.ideas,[]);assert.deepEqual(result.brief.keep,[]);assert.equal(result.brief.goal,'');
 });
-test('excluded interests and unknown items do not force a theme',()=>{
- for(const candidate of [{...item,intent:'gift' as const},{...item,intent:'browsing' as const},{...item,name:'Unrecognised object'}]){
+test('excluded interests do not force a theme',()=>{
+ for(const candidate of [{...item,intent:'gift' as const},{...item,intent:'browsing' as const}]){
   assert.deepEqual(guideOpening(browserContext({items:[candidate],ignored:[]})).answers,['Draining','Restless','Pretty good']);
  }
 });
@@ -33,9 +33,9 @@ test('category frequency beats item order, includes all 100 inputs, and counts e
  assert.deepEqual(summarizeInterests([...inputs].reverse()),result);
  assert.deepEqual(guideOpening('',inputs).answers,['A creative break','Music and listening','Something different']);
 });
-test('empty and unrecognised shortlists begin with the week; supplied empty list overrides old context',()=>{
+test('only empty shortlists begin with the week; unknown items stay anchored to the shortlist',()=>{
  for(const result of [guideOpening('',[]),guideOpening(browserContext({items:[item],ignored:[]}),[])]){assert.match(result.question,/week felt/);assert.equal(result.discovery?.stage,'week');assert.equal(result.ideas.length,0);}
- const unknown=guideOpening('',[{name:'Object Q',url:'https://shop.test/q',intent:'me'}]);assert.equal(unknown.discovery?.total,1);assert.equal(unknown.discovery?.matched,0);assert.equal(unknown.discovery?.stage,'week');
+ const unknown=guideOpening('',[{name:'Object Q',url:'https://shop.test/q',intent:'me'}]);assert.equal(unknown.discovery?.total,1);assert.equal(unknown.discovery?.matched,0);assert.equal(unknown.discovery?.stage,'themes');assert.match(unknown.question,/things you saved/);assert.doesNotMatch(unknown.question,/week|mood/);assert.deepEqual(unknown.ideas,[]);
 });
 test('mood choices ask about desired feeling before recommending; a different theme returns to the week',async()=>{
  let called=0;const handler=guideHandler({begin:async()=>({signal:new AbortController().signal,release:async()=>{}}),structured:async()=>{called++;return guideOpening('');}});
