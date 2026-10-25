@@ -159,7 +159,3 @@ Reviewed the mobile home, plans, settings and recommendation cards visually agai
 ## Security and observability
 
 See [SECURITY.md](SECURITY.md) for the authentication trust boundary and safeguards, and [operations](docs/operations.md) for deployment, privacy-safe diagnostics and incident response. This update adds a D1 research-lease migration, strict mutation-origin checks, request and AI timing/usage events, and repository security checks. Hosted logging and gateway protections must be verified during deployment.
-
-### Landing page and discovery
-
-The public introduction lives at `/`; the existing reward app is at `/discover`. Landing-page examples are local, illustrative interactions and make no AI requests. Previous `/?reward=...` calendar links and `/?companion=save` links redirect into the app, while newly exported reminders point directly to `/discover`.

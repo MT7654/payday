@@ -5,11 +5,10 @@ import "./preference-flow.css";
 import "./shop-guide.css";
 import "./payday-assistant.css";
 import "./design-system.css";
-import "./landing-page.css";
 
 export const metadata: Metadata = {
   title: "Payday — A little something for you",
-  description: "Find a thoughtful payday treat with an AI shopping companion that starts with your life, your budget and what you already love.",
+  description: "Celebrate your milestones. Discover a thoughtful reward, with AI and real community experiences.",
   icons: {
     icon: "/brand/payday-mark.png",
     shortcut: "/brand/payday-mark.png",
