@@ -4,7 +4,13 @@ import {deliverShortlist,requestPayday} from './delivery.js';
 import {readCurrentProduct} from './capture.js';
 let queue=Promise.resolve();
 function serial(fn){const p=queue.then(fn);queue=p.catch(()=>{});return p;}
-chrome.sidePanel.setPanelBehavior({openPanelOnActionClick:true}).catch(()=>{});
+// A real action click grants activeTab. Auto-opening the panel alone can leave
+// a panel with no grant for a newly selected page.
+chrome.sidePanel.setPanelBehavior({openPanelOnActionClick:false}).catch(()=>{});
+chrome.action.onClicked.addListener(tab=>{
+ // Keep this call directly in the gesture handler (before any await).
+ chrome.sidePanel.open({windowId:tab.windowId}).catch(()=>{});
+});
 async function state(){
  const s=await chrome.storage.local.get(['edition','items']);
  if(s.edition!==2){await chrome.storage.local.clear();const next={edition:2,items:preparedInterests()};await chrome.storage.local.set(next);return next;}
@@ -21,13 +27,19 @@ chrome.runtime.onMessage.addListener((m,sender,reply)=>{
   if(m.type==='read-shared')return {items:publicItems(s.items),version:1};
   if(m.type==='state')return s;
   if(m.type==='capture-current'){
-   const [tab]=await chrome.tabs.query({active:true,currentWindow:true});
-   if(!tab?.id||!safeUrl(tab.url)||new URL(tab.url).origin===APP)throw Error('Open a public product page, then click the Payday toolbar icon.');
-   const image=await chrome.tabs.captureVisibleTab(tab.windowId,{format:'jpeg',quality:60});
-   const [stillActive]=await chrome.tabs.query({active:true,currentWindow:true});
-   if(stillActive?.id!==tab.id||stillActive.url!==tab.url)throw Error('The page changed. Please try again on the product page.');
-   const results=await chrome.scripting.executeScript({target:{tabId:tab.id},func:readCurrentProduct});
+   const [tab]=await chrome.tabs.query({active:true,lastFocusedWindow:true});
+   if(tab?.id===undefined)throw Error('No active browser tab found. Open a product page and try again.');
+   // Read the page through the activeTab grant, rather than assuming query()
+   // exposes tab.url while a side panel has focus.
+   let results;
+   try{results=await chrome.scripting.executeScript({target:{tabId:tab.id},func:readCurrentProduct});}
+   catch{throw Error('Page access is not granted yet. Click the Payday icon in Chrome’s toolbar on this product tab, then Detect & add. After an extension update, reload it in chrome://extensions first.');}
    const product=results[0]?.result;
+   const pageUrl=safeUrl(product?.url);
+   if(!pageUrl||new URL(pageUrl).origin===APP)throw Error('Choose a public HTTPS product page, rather than Payday, a sign-in page or checkout.');
+   const image=await chrome.tabs.captureVisibleTab(tab.windowId,{format:'jpeg',quality:60});
+   const [stillActive]=await chrome.tabs.query({active:true,lastFocusedWindow:true});
+   if(stillActive?.id!==tab.id||(stillActive.url&&safeUrl(stillActive.url)!==pageUrl))throw Error('The page changed. Please try again on the product page.');
    const item=cleanItem({...product,kind:'saved',intent:'me',shared:false});
    if(!item)throw Error('This page could not be saved. Try a public product page.');
    const detected=await requestPayday({type:'identify-product',payload:{image,name:item.name,url:item.url}});

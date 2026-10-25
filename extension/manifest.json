@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Payday — Things that caught your eye",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "minimum_chrome_version": "116",
   "description": "A thoughtful shortlist for your next payday. Review your interests and explore what would make your day.",
   "permissions": [

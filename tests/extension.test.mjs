@@ -12,7 +12,7 @@ test('bridge rejects foreign origins, frames, and unknown message types',async()
 });
 test('prepared companion never reads browsing data and only shares selected catalogue interests',async()=>{
  let listener;const data={items:[{name:'Private old item',url:'https://private.example'}],sites:['https://private.example']};let cleared=0;
- globalThis.chrome={sidePanel:{setPanelBehavior:async()=>{}},runtime:{id:'test-id',getURL:p=>'chrome-extension://test-id/'+p,onInstalled:{addListener(){}},onMessage:{addListener:fn=>listener=fn}},storage:{local:{get:async()=>structuredClone(data),set:async value=>Object.assign(data,value),clear:async()=>{cleared++;for(const k of Object.keys(data))delete data[k];}}}};
+ globalThis.chrome={action:{onClicked:{addListener(){}}},sidePanel:{setPanelBehavior:async()=>{}},runtime:{id:'test-id',getURL:p=>'chrome-extension://test-id/'+p,onInstalled:{addListener(){}},onMessage:{addListener:fn=>listener=fn}},storage:{local:{get:async()=>structuredClone(data),set:async value=>Object.assign(data,value),clear:async()=>{cleared++;for(const k of Object.keys(data))delete data[k];}}}};
  await import('../extension/background.js');
  const panel={id:'test-id',url:'chrome-extension://test-id/panel.html'};
  const app={id:'test-id',origin:APP,frameId:0};

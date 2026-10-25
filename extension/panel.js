@@ -3,7 +3,7 @@ const message=async data=>{const r=await chrome.runtime.sendMessage(data);if(r?.
 const tell=text=>$('status').textContent=text;
 const confirmed=new Set();let busy=false,draft=null;
 function element(tag,text){const e=document.createElement(tag);if(text)e.textContent=text;return e;}
-async function change(fn){if(busy)return;busy=true;await render();try{await fn();}catch(e){tell(e.message);}finally{busy=false;await render();}}
+async function change(fn){if(busy)return;busy=true;try{await render();await fn();}catch(e){tell(e.message);}finally{busy=false;try{await render();}catch{tell('Reload the extension and reopen the companion.');}}}
 async function send(ids){tell('Saving to your Payday shortlist…');const r=await message({type:'send-shortlist',ids});for(const id of r.saved)confirmed.add(id);tell(r.skipped.length?'Some items were excluded or previously removed in Payday. Review those there; other items are saved.':`${r.saved.length===1?'Added to your shortlist.':r.saved.length+' items added to your shortlist.'} Ready whenever you visit Payday.`);}
 async function saveDraft(){const item={...draft,name:$('product-name').value.trim()};if(!item.name)throw Error('Give this product a name first.');const r=await message({type:'save-captured',item});draft=null;$('review').hidden=true;await send([r.id]);}
 async function render(){const s=await message({type:'state'});$('count').textContent=s.items.length;$('items').replaceChildren();let available=0;
