@@ -1,7 +1,8 @@
 import {z} from 'zod';
-export const guideSchema=z.object({opening:z.boolean().default(false),budget:z.number().min(1).max(100000),location:z.string().min(1).max(150),context:z.string().max(10000).default(''),history:z.array(z.object({role:z.enum(['user','assistant']),text:z.string().min(1).max(6000)})).min(1).max(24)});
+import type {DiscoverySummary} from './guide-opening';
+export const guideSchema=z.object({opening:z.boolean().default(false),discoveryStage:z.enum(['week','feeling','themes']).optional(),interests:z.array(z.object({name:z.string().min(1).max(180),url:z.string().max(1500).url(),intent:z.enum(['me','gift','browsing'])})).max(100).optional(),budget:z.number().min(1).max(100000),location:z.string().min(1).max(150),context:z.string().max(10000).default(''),history:z.array(z.object({role:z.enum(['user','assistant']),text:z.string().min(1).max(6000)})).min(1).max(24)});
 export type GuideBrief={goal:string;keep:string[];avoid:string[];priority:string;occasion:string;format:'any'|'own'|'do'|'give'};
-export type GuideReply={message:string;question:string;answers:string[];brief:GuideBrief;ideas:import('./journey').Idea[]};
+export type GuideReply={discovery?:DiscoverySummary;message:string;question:string;answers:string[];brief:GuideBrief;ideas:import('./journey').Idea[]};
 export function transcript(history:{role:string;text:string}[]){return history.map(h=>`${h.role==='user'?'BUYER':'GUIDE'}: ${h.text}`).join('\n');}
 
 export const guideReplySchema=z.object({
